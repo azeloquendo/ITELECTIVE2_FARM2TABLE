@@ -1,0 +1,1054 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Remove horizontal scrollbars from all buyer panel pages */
+.container,
+.main,
+.sidebar,
+.mobileHeader,
+.overlay {
+  overflow-x: hidden !important;
+}
+
+/* Ensure all content within main doesn't cause horizontal overflow */
+.main > * {
+  max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100dvh;
+    width: 100vw;
+    background: #f9fafb;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    overflow-x: hidden;
+}
+
+.main {
+    margin-left: 80px;
+    padding: 20px;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.main > * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* ====== Mobile Header ====== */
+.mobileHeader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #f8f9fa; /* Off-white to match sidebar */
+    color: #1A4D2E; /* Green text for mobile header */
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow-x: hidden;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.menuToggle {
+    background: none;
+    border: none;
+    color: #1A4D2E; /* Green icon */
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    outline: none;
+}
+
+.menuToggle:hover {
+    background: rgba(26, 77, 46, 0.1); /* Light green hover */
+}
+
+.menuToggle:focus {
+    outline: none;
+}
+
+.mobileTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    color: #1A4D2E; /* Green text */
+}
+
+.headerSpacer {
+    width: 40px;
+}
+
+/* ====== Mobile Top Actions ====== */
+.mobileTopActions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.mobileActionBtn {
+    background: none;
+    border: none;
+    color: #1A4D2E;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    outline: none;
+}
+
+.mobileActionBtn:hover {
+    background: rgba(26, 77, 46, 0.1);
+}
+
+.mobileActionBtn:focus {
+    outline: none;
+}
+
+/* ====== Mobile Bottom Navigation ====== */
+.mobileBottomNav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.bottomNavItems {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+}
+
+.bottomNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    padding: 8px 4px;
+    outline: none;
+}
+
+.bottomNavItem:hover {
+    color: #1A4D2E;
+    background: rgba(232, 223, 202, 0.3);
+}
+
+.bottomNavItem.active {
+    color: #1A4D2E;
+    background: #E8DFCA;
+}
+
+.bottomNavItem:focus {
+    outline: none;
+}
+
+.bottomNavIcon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+}
+
+.bottomNavProfile {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+
+.bottomNavProfile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ====== Overlay ====== */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    overflow-x: hidden;
+}
+
+/* ====== Logo Container ====== */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0 1rem 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ====== Sidebar ====== */
+.sidebar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 70px;
+    height: calc(100vh - 20px);
+    background: #f8f9fa; /* Off-white background */
+    color: #1A4D2E; /* Green text color */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.1),
+        0 0 0 1px rgba(0,0,0,0.05);
+    z-index: 999;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, left 0.3s ease;
+    overflow-x: hidden;
+    border: 1px solid #e9ecef;
+}
+
+/* ====== Navigation Container ====== */
+.navContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 0;
+}
+
+/* ====== Navigation ====== */
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    min-height: 0;
+    margin-top: 0;
+}
+
+/* Custom scrollbar for nav */
+.nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nav::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.nav::-webkit-scrollbar-thumb {
+    background: rgba(26, 77, 46, 0.3); /* Green scrollbar */
+    border-radius: 2px;
+}
+
+.nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 77, 46, 0.5);
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    gap: 0;
+    padding: 10px;
+    border-radius: 12px;
+    color: #1A4D2E; /* Green icons */
+    margin: 2px 10px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    outline: none;
+}
+
+.navItem:hover {
+    background: #E8DFCA; /* Beige hover background */
+    color: #1A4D2E; /* Keep green icon color */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.navItem.active {
+    background: #E8DFCA; /* Beige active background */
+    color: #1A4D2E; /* Keep green icon color */
+    /* 3D Shadow Effect */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.navItem:focus {
+    outline: none;
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navItem svg {
+    flex-shrink: 0;
+}
+
+.navText {
+    display: none;
+}
+
+/* ====== Bottom Actions Container ====== */
+.bottomActions {
+    margin-top: auto;
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 10px; /* Added bottom padding */
+}
+
+/* ====== Dark Mode Toggle ====== */
+.darkModeToggle {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    background: #ffffff; /* White background for contrast */
+    border-radius: 12px;
+    height: 96px; /* Double height for two icons */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    border: 1.5px solid #e9ecef; /* Subtle border */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 2px 8px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+    outline: none;
+}
+
+.darkModeToggle:hover {
+    background: #fefefe;
+    border-color: #E8DFCA;
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    transform: translateY(-1px);
+}
+
+.darkModeToggle:focus {
+    outline: none;
+}
+
+.darkModeIcons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 14px 0;
+    position: relative;
+}
+
+.darkModeIcons::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: 15px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #e9ecef 20%, #e9ecef 80%, transparent 100%);
+    transform: translateY(-50%);
+}
+
+.darkModeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #1A4D2E; /* Green icons */
+    transition: all 0.3s ease;
+}
+
+.darkModeToggle:hover .darkModeIcon {
+    color: #1A4D2E; /* Keep green on hover */
+}
+
+/* ====== Profile Container ====== */
+.profileContainer {
+    display: none; /* Hide profile container in main sidebar */
+}
+
+.profilePicture {
+    display: none; /* Hide profile picture in main sidebar */
+}
+
+/* ====== Logout Button ====== */
+.logoutBtn {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    color: #1A4D2E; /* Green icon */
+    background: #E8DFCA; /* Beige background - SAME as active buttons */
+    border-radius: 12px;
+    height: 48px;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    border: none;
+    /* EXACT SAME 3D Shadow Effect as Active Buttons */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border: 1px solid rgba(0,0,0,0.05);
+    outline: none;
+    position: relative;
+}
+
+.logoutBtn:hover {
+    background: #d4c9b0; /* Darker beige on hover */
+    color: #1A4D2E; /* Keep green icon color */
+    /* Enhanced 3D Shadow on Hover - SAME as active buttons hover */
+    box-shadow: 
+        inset 0 -3px 6px rgba(0,0,0,0.12),
+        inset 0 3px 6px rgba(255,255,255,0.9),
+        0 6px 12px rgba(0,0,0,0.2),
+        0 3px 6px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.logoutBtn:active {
+    background: #c5b89a; /* Even darker when pressed */
+    transform: translateY(0);
+    /* Pressed State - SAME as active buttons active state */
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.15),
+        inset 0 -1px 2px rgba(255,255,255,0.4),
+        0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logoutBtn:focus {
+    outline: none;
+    /* Focus state - SAME as active buttons focus */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1),
+        0 0 0 2px rgba(232, 223, 202, 0.5);
+}
+
+/* ====== Submenu Container ====== */
+.submenuContainer {
+    position: fixed;
+    top: 10px;
+    left: 90px; /* Main sidebar width + spacing */
+    width: 250px;
+    height: calc(100vh - 20px);
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 998;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: 1px solid #e9ecef;
+}
+
+/* Main content when submenu is visible */
+.main.withSubmenu {
+    margin-left: 310px; /* Main sidebar + submenu width */
+}
+
+/* Submenu Navigation */
+.submenuNav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 16px;
+}
+
+.submenuHeader {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1A4D2E;
+    margin: 0 0 16px 0;
+    padding: 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submenuItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+.submenuItem:hover {
+    background: #f3f4f6;
+    color: #1A4D2E;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.submenuItem.active {
+    background: #E8DFCA;
+    color: #1A4D2E;
+    font-weight: 500;
+    /* 3D Shadow Effect */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.submenuItem:focus {
+    outline: none;
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+}
+
+.submenuDivider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 16px 0;
+    border: none;
+}
+
+/* Remove green borders from all interactive elements */
+button:focus,
+a:focus,
+[role="button"]:focus {
+    outline: none;
+}
+
+/* Specific focus styles for better accessibility */
+.navItem:focus-visible,
+.submenuItem:focus-visible,
+.logoutBtn:focus-visible {
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1),
+        0 0 0 2px rgba(26, 77, 46, 0.3);
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+/* Tablet and Mobile Devices (768px and below) */
+@media (max-width: 768px) {
+    .mobileHeader {
+        display: flex;
+    }
+    
+    .mobileBottomNav {
+        display: block;
+    }
+    
+    .overlay {
+        display: block;
+    }
+    
+    .sidebar {
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 240px; /* Reduced from 280px */
+        border-radius: 0;
+        transform: translateX(-100%);
+        box-shadow: none;
+        padding-top: 70px;
+        border: none;
+        border-right: 1px solid #e9ecef;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    
+    .sidebar.mobileOpen {
+        transform: translateX(0);
+    }
+    
+    .main {
+        margin-left: 0;
+        padding: 80px 20px 90px 20px; /* Added bottom padding for bottom nav */
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    .mobileMain {
+        padding-top: 80px;
+    }
+    
+    /* Mobile-specific logo styling */
+    .logoContainer {
+        justify-content: flex-start; /* Logo to left */
+        padding: 1rem 0 1.5rem 1.5rem; /* Adjusted padding */
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+    }
+    
+    .logo {
+        width: 35px; /* Slightly smaller */
+        height: 35px;
+    }
+    
+    .navContainer {
+        height: calc(100% - 70px);
+        overflow: hidden;
+    }
+    
+    .nav {
+        margin-top: 0;
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px 0;
+    }
+    
+    .navItem {
+        height: 50px; /* Slightly reduced */
+        margin: 3px 15px; /* Reduced margin */
+        padding: 12px 16px; /* Adjusted padding */
+        font-size: 1.1rem;
+        justify-content: flex-start;
+        gap: 10px;
+        color: #1A4D2E; /* Green icons */
+    }
+    
+    .navItem:hover {
+        background: #E8DFCA; /* Beige hover */
+        color: #1A4D2E; /* Green icons */
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .navItem.active {
+        background: #E8DFCA; /* Beige active */
+        color: #1A4D2E; /* Green icons */
+        /* Enhanced 3D Shadow for Mobile */
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+    
+    .navItem:focus {
+        outline: none;
+    }
+    
+    .navItem svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .navText {
+        display: block;
+        font-size: 1rem; /* Slightly smaller */
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 1;
+        width: auto;
+        color: #1A4D2E; /* Green text */
+    }
+    
+    /* Mobile bottom actions */
+    .bottomActions {
+        gap: 10px;
+        padding-bottom: 15px; /* Added padding for mobile */
+    }
+    
+    /* Improved Dark Mode Toggle for Mobile */
+    .darkModeToggle {
+        width: calc(100% - 30px);
+        margin: 0 15px;
+        height: 60px; /* Much shorter */
+        flex-direction: row; /* Horizontal layout */
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1.5px solid #e9ecef;
+        padding: 0 20px;
+        gap: 12px;
+    }
+    
+    .darkModeIcons {
+        flex-direction: row; /* Horizontal layout */
+        justify-content: space-between;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        padding: 0;
+        gap: 16px;
+    }
+    
+    .darkModeIcons::after {
+        display: none; /* Remove separator line */
+    }
+    
+    .darkModeToggle:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .profileContainer {
+        display: none; /* Hide in mobile main sidebar */
+    }
+    
+    .profilePicture {
+        display: none; /* Hide profile picture in mobile main sidebar */
+    }
+    
+    .logoutBtn {
+        width: calc(100% - 30px);
+        margin: 0 15px;
+        height: 50px;
+        font-size: 1.1rem;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 0 14px;
+        color: #1A4D2E;
+        background: #E8DFCA;
+        /* Same 3D Shadow Effect as Active Mobile Buttons */
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+    
+    .logoutBtn:hover {
+        background: #d4c9b0;
+        color: #1A4D2E;
+        /* Enhanced hover effect for mobile */
+        box-shadow: 
+            inset 0 -4px 8px rgba(0,0,0,0.15),
+            inset 0 4px 8px rgba(255,255,255,0.9),
+            0 8px 16px rgba(0,0,0,0.25),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-3px);
+    }
+    
+    .logoutBtn:active {
+        background: #c5b89a;
+        transform: translateY(-1px);
+        /* Pressed state for mobile */
+        box-shadow: 
+            inset 0 3px 6px rgba(0,0,0,0.15),
+            inset 0 -2px 4px rgba(255,255,255,0.4),
+            0 3px 6px rgba(0,0,0,0.15);
+    }
+    
+    .logoutBtn:focus {
+        outline: none;
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15),
+            0 0 0 2px rgba(232, 223, 202, 0.5);
+    }
+    
+    .submenuContainer {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 280px;
+        height: calc(100vh - 70px);
+        border-radius: 0;
+        border-right: 1px solid #e9ecef;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .submenuContainer.mobileOpen {
+        transform: translateX(0);
+    }
+    
+    .main.withSubmenu {
+        margin-left: 0;
+    }
+}
+
+/* Small Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 220px; /* Even narrower */
+    }
+    
+    .main {
+        padding: 80px 15px 85px 15px; /* Adjusted bottom padding */
+        overflow-x: hidden;
+    }
+    
+    .mobileHeader {
+        padding: 0 15px;
+        height: 60px;
+    }
+    
+    .mobileBottomNav {
+        height: 65px;
+    }
+    
+    .bottomNavItem {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .logoContainer {
+        padding: 0.75rem 0 1rem 1rem;
+    }
+    
+    .navContainer {
+        height: calc(100% - 60px);
+    }
+    
+    .nav {
+        padding: 8px 0;
+    }
+    
+    .navItem {
+        height: 48px;
+        margin: 2px 12px;
+        padding: 10px 14px;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .navItem.active {
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+    }
+    
+    .navText {
+        font-size: 0.95rem;
+    }
+    
+    .darkModeToggle {
+        width: calc(100% - 24px);
+        margin: 0 12px;
+        height: 56px;
+        padding: 0 16px;
+        gap: 10px;
+    }
+    
+    .profileContainer {
+        display: none; /* Hide in small mobile main sidebar */
+    }
+    
+    .profilePicture {
+        display: none; /* Hide profile picture in small mobile main sidebar */
+    }
+    
+.logoutBtn {
+        width: calc(100% - 24px);
+        margin: 0 12px;
+        height: 48px;
+        font-size: 1rem;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 0 12px;
+        color: #1A4D2E;
+        background: #E8DFCA;
+        /* Same 3D Shadow Effect as Active Small Mobile Buttons */
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .logoutBtn:hover {
+        background: #d4c9b0;
+        color: #1A4D2E;
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+    
+    .logoutBtn:active {
+        background: #c5b89a;
+        transform: translateY(0);
+        box-shadow: 
+            inset 0 2px 4px rgba(0,0,0,0.15),
+            inset 0 -1px 2px rgba(255,255,255,0.4),
+            0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logoutBtn:focus {
+        outline: none;
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1),
+            0 0 0 2px rgba(232, 223, 202, 0.5);
+    }
+}
+
+/* Collapsed sidebar state */
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed .navText {
+    display: none;
+}
+
+.sidebar.collapsed .navItem {
+    justify-content: center;
+    padding: 10px;
+}
+
+.sidebar.collapsed .darkModeToggle {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+}
+
+.sidebar.collapsed .profileContainer {
+    display: none; /* Hide in collapsed state */
+}
+
+.sidebar.collapsed .logoutBtn {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 0 10px;
+    justify-content: center;
+}
+
+.sidebar.collapsed ~ .main {
+    margin-left: 70px;
+}
+
+/* Prevent horizontal scrolling on mobile */
+@media (max-width: 768px) {
+    .main {
+        overflow-x: hidden;
+    }
+    
+    .mobileHeader {
+        overflow-x: hidden;
+    }
+    
+    .mobileBottomNav {
+        overflow-x: hidden;
+    }
+}
+
+/* Animation for buyer panel */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navItem {
+    animation: slideIn 0.3s ease-out;
+}

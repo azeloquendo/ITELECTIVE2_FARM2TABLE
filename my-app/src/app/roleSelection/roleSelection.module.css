@@ -1,0 +1,432 @@
+.container {
+    min-height: 100vh;
+    background: #fff;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    perspective: 1000px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-top: 1rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #273F4F;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.5px;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: #273F4F;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.accountSelection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-grow: 1;
+    padding: 1rem 0;
+}
+
+.accountOption {
+    flex: 1;
+    background: #fafafa; /* off white background */
+    border-radius: 18px;
+    position: relative;
+    min-width: 320px;
+    max-width: 380px;
+    padding: 2rem;
+    border: 3px solid #FFE194; /* yellow border */
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1),
+        inset 0 -2px 4px rgba(255, 255, 255, 0.8);
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sellerCard {
+    background: linear-gradient(145deg, #fafafa 0%, #f5f5f5 100%);
+    transform: rotateY(-5deg) translateZ(20px);
+}
+
+.buyerCard {
+    background: linear-gradient(145deg, #fafafa 0%, #f5f5f5 100%);
+    transform: rotateY(5deg) translateZ(20px);
+}
+
+.imageContainer {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(30px);
+    overflow: hidden;
+    background: transparent;
+}
+
+.roleImage {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.optionHeader {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.optionHeader h2 {
+    font-size: 1.6rem;
+    margin: 0;
+    font-weight: 700;
+    color: #273F4F;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transform: translateZ(25px);
+}
+
+.optionContent {
+    text-align: center;
+    transform: translateZ(20px);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.optionContent p {
+    font-size: 1rem;
+    color: #273F4F;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    font-weight: 500;
+    padding: 0 0.5rem;
+}
+
+/* Updated 3D Button - Matching Buyer Signin Design */
+.btn {
+    padding: 14px;
+    background: #FFE194;
+    color: #273F4F;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    box-shadow: 
+        0 4px 0 #E6C885,
+        0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+    border: 2px solid #FFD369;
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+}
+
+.btn:hover:not(:disabled) {
+    background: #FFD369;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 0 #E6C885,
+        0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 
+        0 2px 0 #E6C885,
+        0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+    background: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    border: 2px solid #bbbbbb;
+}
+
+.cardShadow {
+    position: absolute;
+    bottom: -12px;
+    left: 15px;
+    right: 15px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 225, 148, 0.3);
+    filter: blur(12px);
+    z-index: -1;
+    transform: translateZ(-40px);
+}
+
+/* Hover Effects */
+.accountOption:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 8px 16px rgba(0, 0, 0, 0.15),
+        inset 0 -2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.sellerCard:hover {
+    transform: rotateY(-8deg) translateZ(30px) scale(1.02);
+}
+
+.buyerCard:hover {
+    transform: rotateY(8deg) translateZ(30px) scale(1.02);
+}
+
+/* Mobile: 320px - 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        perspective: none;
+        min-height: 100vh;
+    }
+  
+    .header {
+        margin-bottom: 2rem;
+        padding-top: 0.5rem;
+    }
+  
+    .header h1 {
+        font-size: 1.8rem;
+    }
+  
+    .header p {
+        font-size: 1rem;
+    }
+  
+    .accountSelection {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0.5rem 0;
+    }
+  
+    .accountOption {
+        width: 100%;
+        min-width: unset;
+        max-width: 280px;
+        height: 320px;
+        transform: none !important;
+        padding: 1.5rem;
+    }
+  
+    .sellerCard:hover,
+    .buyerCard:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+    }
+  
+    .imageContainer {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+  
+    .optionHeader h2 {
+        font-size: 1.3rem;
+    }
+  
+    .optionContent p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        padding: 0;
+    }
+  
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Tablet: 769px - 991px */
+@media (min-width: 769px) and (max-width: 991px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .header p {
+        font-size: 1.1rem;
+    }
+    
+    .accountSelection {
+        gap: 2rem;
+        max-width: 900px;
+    }
+    
+    .accountOption {
+        min-width: 280px;
+        max-width: 320px;
+        height: 360px;
+        padding: 1.75rem;
+    }
+    
+    .imageContainer {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 1.25rem;
+    }
+    
+    .optionHeader h2 {
+        font-size: 1.4rem;
+    }
+    
+    .optionContent p {
+        font-size: 0.95rem;
+    }
+    
+    .btn {
+        padding: 13px;
+        font-size: 15px;
+    }
+}
+
+/* Small Screen: 992px - 1279px */
+@media (min-width: 992px) and (max-width: 1279px) {
+    .container {
+        padding: 2rem;
+    }
+    
+    .accountSelection {
+        gap: 2.5rem;
+        max-width: 1000px;
+    }
+    
+    .accountOption {
+        min-width: 300px;
+        max-width: 350px;
+        height: 370px;
+    }
+    
+    .header h1 {
+        font-size: 2.3rem;
+    }
+    
+    .header p {
+        font-size: 1.15rem;
+    }
+    
+    .btn {
+        padding: 14px;
+        font-size: 16px;
+    }
+}
+
+/* Large Screen: 1280px and above */
+@media (min-width: 1280px) {
+    .container {
+        padding: 2.5rem;
+    }
+    
+    .accountSelection {
+        gap: 3.5rem;
+        max-width: 1200px;
+    }
+    
+    .accountOption {
+        min-width: 340px;
+        max-width: 400px;
+        height: 390px;
+        padding: 2.25rem;
+    }
+    
+    .header h1 {
+        font-size: 2.8rem;
+    }
+    
+    .header p {
+        font-size: 1.3rem;
+    }
+    
+    .imageContainer {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 1.75rem;
+    }
+    
+    .optionHeader h2 {
+        font-size: 1.7rem;
+    }
+    
+    .optionContent p {
+        font-size: 1.05rem;
+    }
+    
+    .btn {
+        padding: 15px;
+        font-size: 17px;
+    }
+}
+
+/* Extra Small Mobile Optimization */
+@media (max-width: 360px) {
+    .container {
+        padding: 0.75rem;
+    }
+    
+    .header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    .accountOption {
+        max-width: 260px;
+        height: 300px;
+        padding: 1.25rem;
+    }
+    
+    .imageContainer {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .optionHeader h2 {
+        font-size: 1.2rem;
+    }
+    
+    .optionContent p {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .btn {
+        padding: 10px;
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,118 @@
+.progressContainer {
+  width: 100%;
+  margin: 40px 0 20px;
+}
+
+.progressSteps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.stepIndicator {
+  margin-bottom: 8px;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+/* Active Step */
+.step.active .stepNumber {
+  background: #1A4D2E;
+  border-color: #1A4D2E;
+  color: white;
+}
+
+/* Completed Step */
+.step.completed .stepNumber {
+  background: #1A4D2E;
+  border-color: #1A4D2E;
+  color: white;
+}
+
+.stepLabel {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.step.active .stepLabel {
+  color: #1A4D2E;
+  font-weight: 600;
+}
+
+.step.completed .stepLabel {
+  color: #1A4D2E;
+  font-weight: 600;
+}
+
+/* Progress Bar */
+.progressBar {
+  width: 100%;
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #1A4D2E;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .progressContainer {
+    margin: 30px 0 15px;
+  }
+  
+  .stepNumber {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .stepLabel {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stepNumber {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+  
+  .stepLabel {
+    font-size: 10px;
+  }
+}

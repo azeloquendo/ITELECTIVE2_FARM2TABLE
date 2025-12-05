@@ -1,0 +1,304 @@
+.farmersSection {
+  padding: 40px 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: transparent;
+}
+
+.sectionHeader {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3a1a;
+  margin: 0;
+}
+
+.farmersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.farmerCard {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8f5e8;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.farmerCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.farmerImageContainer {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #7ABA78;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: #f8f9fa;
+}
+
+.farmerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.farmerInfo {
+  flex: 1;
+  width: 100%;
+}
+
+.farmerName {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a3a1a;
+  margin: 0 0 8px 0;
+}
+
+.farmerRole {
+  font-size: 1rem;
+  color: #7ABA78;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+}
+
+.farmerBioPreview {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+  min-height: 4.5em;
+}
+
+.viewMoreButton {
+  padding: 10px 24px;
+  background: #7ABA78;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.viewMoreButton:hover {
+  background: #6AA86A;
+  transform: translateY(-2px);
+}
+
+.noFarmers {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Farmer Modal Styles */
+.farmerModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.farmerModalContent {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e8f5e8;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+
+.closeModalButton:hover {
+  background: #e5e5e5;
+}
+
+.farmerModalHeader {
+  padding: 40px 40px 30px;
+  border-bottom: 1px solid #f0f7f0;
+  background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-align: left;
+}
+
+.modalFarmerImageContainer {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #7ABA78;
+  overflow: hidden;
+  background: #f8f9fa;
+  flex-shrink: 0;
+}
+
+.modalFarmerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalFarmerInfo {
+  flex: 1;
+}
+
+.modalFarmerName {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a3a1a;
+  margin: 0 0 8px 0;
+}
+
+.modalFarmerRole {
+  font-size: 1.1rem;
+  color: #7ABA78;
+  font-weight: 600;
+  margin: 0;
+}
+
+.farmerModalBody {
+  padding: 30px 40px 40px;
+}
+
+.bioSection {
+  text-align: left;
+}
+
+.bioSection .sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a3a1a;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+.modalFarmerBio {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .farmersGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+  
+  .farmerCard {
+    padding: 20px;
+  }
+  
+  .farmerImageContainer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .farmerModalContent {
+    width: 95%;
+    max-width: none;
+    margin: 10px;
+  }
+
+  .farmerModalHeader {
+    padding: 30px 25px 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .modalFarmerImageContainer {
+    width: 80px;
+    height: 80px;
+  }
+
+  .modalFarmerName {
+    font-size: 1.5rem;
+  }
+
+  .farmerModalBody {
+    padding: 20px 25px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .farmersGrid {
+    padding: 0 10px;
+  }
+  
+  .farmerCard {
+    padding: 15px;
+  }
+
+  .farmerModalHeader {
+    padding: 25px 20px 15px;
+  }
+
+  .farmerModalBody {
+    padding: 15px 20px 25px;
+  }
+
+  .modalFarmerName {
+    font-size: 1.3rem;
+  }
+
+  .closeModalButton {
+    top: 15px;
+    right: 15px;
+    padding: 8px;
+  }
+}
+

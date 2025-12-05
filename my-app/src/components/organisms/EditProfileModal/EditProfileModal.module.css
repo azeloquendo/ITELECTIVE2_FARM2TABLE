@@ -1,0 +1,778 @@
+/* ===== MODAL OVERLAY ===== */
+.formOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.formContainer {
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 16px;
+  width: 800px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.exitBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.exitBtn:hover {
+  background: #e5e5e5;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.formContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ===== FARM INFORMATION ===== */
+.farmInfoSection {
+  margin-bottom: 10px;
+}
+
+.farmInfoTitle {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.farmInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.farmInfoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.farmInfoIcon {
+  color: #4F6F52;
+}
+
+.farmInfoLabel {
+  font-weight: 600;
+  color: #374151;
+  min-width: 90px;
+  font-size: 0.9rem;
+}
+
+.farmInfoValue {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* ===== TEXT FIELDS SECTION ===== */
+.textFieldsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ===== FORM GROUPS ===== */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.required::after {
+  content: " *";
+  color: #dc2626;
+}
+
+.input,
+.textarea,
+.selectInput {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  width: 100%;
+  background: #fff;
+  font-family: inherit;
+}
+
+.input:focus,
+.textarea:focus,
+.selectInput:focus {
+  outline: none;
+  border-color: #4F6F52;
+}
+
+.input:hover,
+.textarea:hover,
+.selectInput:hover {
+  border-color: #9ca3af;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* ===== INLINE FORM GROUPS ===== */
+.inlineFormGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* ===== LOGO UPLOAD - SIDE BY SIDE ===== */
+.logoUploadContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logoPreview {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  overflow: hidden;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  height: 100%;
+}
+
+.uploadLogoButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+  background: #f9fafb;
+  gap: 8px;
+  text-align: center;
+  min-height: 120px;
+  transition: all 0.2s ease;
+}
+
+.uploadLogoButton:hover {
+  border-color: #4F6F52;
+  background: #f3f4f6;
+}
+
+.uploadLogoText {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #4F6F52;
+}
+
+.uploadHelpText {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+}
+
+/* ===== GALLERY SECTION - SIDE BY SIDE ===== */
+.gallerySection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.previewTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #374151;
+}
+
+.galleryContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Left Side: Gallery Preview */
+.galleryPreview {
+  width: 100%;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e5e7eb;
+  color: #1a1a1a;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.leftArrow {
+  left: 10px;
+}
+
+.rightArrow {
+  right: 10px;
+}
+
+.carouselArrow:hover:not(:disabled) {
+  background: #fff;
+}
+
+.carouselArrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.removeCurrentBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dc2626;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.removeCurrentBtn:hover {
+  background: #b91c1c;
+}
+
+.carouselDots {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+.activeDot {
+  background: #fff;
+}
+
+.placeholderBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #666;
+  text-align: center;
+}
+
+.placeholderSubtext {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #9ca3af;
+}
+
+/* Right Side: Gallery Upload */
+.galleryUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+
+.uploadInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.uploadInfo h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.imageCount {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ===== FILE UPLOAD ===== */
+.fileLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+  width: 100%;
+  background: #f9fafb;
+  gap: 8px;
+  text-align: center;
+  min-height: 140px;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.fileLabel:hover {
+  border-color: #4F6F52;
+  background: #f3f4f6;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadText {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #4F6F52;
+}
+
+.uploadSubtext {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* ===== FARMERS SECTION ===== */
+.descriptionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.farmersList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.farmerCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f9fafb;
+}
+
+.farmerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.farmerName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.removeFarmer {
+  background: #dc2626;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.removeFarmer:hover {
+  background: #b91c1c;
+  transform: scale(1.1);
+}
+
+/* Farmer Content - Equal left and right sides */
+.farmerContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+/* Left Side: Name and Role */
+.farmerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.farmerBasicInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Right Side: Photo and Change Photo button */
+.farmerImageSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.farmerImageContainer {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  overflow: hidden;
+  background: #fff;
+}
+
+.farmerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadImageButton {
+  background: #4F6F52;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.uploadImageButton:hover {
+  background: #3d5a40;
+}
+
+/* Bio - Full width below */
+.farmerBioSection {
+  width: 100%;
+}
+
+.addFarmerButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #4F6F52;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 10px;
+}
+
+.addFarmerButton:hover:not(:disabled) {
+  background: #3d5a40;
+  transform: translateY(-1px);
+}
+
+.addFarmerButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== SUBMIT SECTION ===== */
+.submitSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.secondaryButton {
+  padding: 12px 24px;
+  background: white;
+  color: #666;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 30px;
+  border-radius: 8px;
+  background: #00537A;
+  color: white;
+  border: 2px solid #00537A;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  
+  /* 3D Effect */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 83, 122, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #00415e;
+  border-color: #00415e;
+  transform: translateY(0px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    0 3px 6px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 83, 122, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 83, 122, 0.1);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: translateY(1px);
+}
+
+.errorMessage {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 30px 20px;
+  }
+  
+  .inlineFormGroup {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .logoUploadContainer {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .galleryContainer {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .farmerContent {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .submitSection {
+    flex-direction: column;
+  }
+  
+  .secondaryButton,
+  .submitBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .carouselContainer {
+    height: 180px;
+  }
+
+  .uploadLogoButton {
+    min-height: 100px;
+  }
+
+  .fileLabel {
+    min-height: 120px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 20px 15px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .logoPreview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .farmerImageContainer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .carouselContainer {
+    height: 150px;
+  }
+
+  .farmersList {
+    gap: 15px;
+  }
+
+  .farmerCard {
+    padding: 15px;
+  }
+}
+

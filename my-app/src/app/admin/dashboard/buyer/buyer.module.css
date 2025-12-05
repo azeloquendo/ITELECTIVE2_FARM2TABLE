@@ -1,0 +1,464 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fafafa;
+  min-height: 100vh;
+}
+
+/* Search and Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 16px;
+}
+
+.searchContainer {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #273F4F;
+  opacity: 0.7;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  color: #273F4F;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #273F4F;
+  box-shadow: 0 0 0 3px rgba(39, 63, 79, 0.1);
+  transform: translateY(-1px);
+}
+
+.searchInput::placeholder {
+  color: #273F4F;
+  opacity: 0.5;
+}
+
+/* Filter Controls */
+.filterControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Custom Dropdown Styles */
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 2px solid #FFB319;
+  border-radius: 12px;
+  background: #FFE194;
+  color: #000000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  min-width: 140px;
+  justify-content: space-between;
+  white-space: nowrap;
+  
+  /* 3D effect */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(1px);
+  border-color: #FFE194;
+}
+
+.dropdownButton:hover {
+  background: #FFE194;
+  transform: translateY(0px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    0 3px 6px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+.dropdownButton:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 8px;
+  padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  min-width: 140px;
+  width: 100%;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownItem:hover {
+  background: #FFF9E6;
+  color: #000;
+}
+
+.dropdownItem.selected {
+  background: #FFE194;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Arrow styles */
+.arrow {
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.2s ease;
+}
+
+.arrowDown {
+  transform: rotate(45deg);
+}
+
+.arrowUp {
+  transform: rotate(-135deg);
+}
+
+/* Table Styles - Matching products table design */
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.productsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.productsTable th {
+  background: #f8fafc;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.productsTable th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.productsTable th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.productsTable td {
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.productsTable tr:hover {
+  background: #f9fafb;
+  transition: background-color 0.2s ease;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.productImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.productImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.productDetails strong {
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.productDetails span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contactItem {
+  font-size: 13px;
+  color: #374151;
+}
+
+.contactItem strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Location info with same text size as contact info */
+.locationInfo {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.stock {
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+}
+
+/* 3D Status Badges */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  /* 3D effect */
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+
+.status.active {
+  background: #E8F5E8;
+  color: #273F4F;
+  border: 1px solid #10B981;
+}
+
+.status.suspended {
+  background: #FEE2E2;
+  color: #273F4F;
+  border: 1px solid #DC2626;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.viewBtn, .editBtn, .deleteBtn {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewBtn {
+  background: #3b82f6;
+  color: white;
+}
+
+.viewBtn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.editBtn {
+  background: #f59e0b;
+  color: white;
+}
+
+.editBtn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.noProducts {
+  text-align: center;
+  padding: 48px !important;
+  background: #f8fafc;
+  color: #6b7280;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: #273F4F;
+  opacity: 0.7;
+}
+
+.emptyState p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.emptyState span {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Loading States */
+.loadingState {
+  text-align: center;
+  padding: 3rem;
+  color: #273F4F;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #273F4F;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .searchContainer {
+    max-width: none;
+  }
+  
+  .filterControls {
+    justify-content: stretch;
+  }
+  
+  .dropdownButton {
+    min-width: auto;
+    flex: 1;
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+  }
+  
+  .productsTable {
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .searchInput {
+    padding: 12px 14px 12px 44px;
+  }
+  
+  .dropdownButton {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}

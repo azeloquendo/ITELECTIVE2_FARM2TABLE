@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  height: 100dvh;
+  width: 100vw;
+  background: #f9fafb;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main {
+  margin-left: 80px;
+  padding: 20px;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  color: #273F4F;
+}
+
+.main > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.main.withSubmenu {
+  margin-left: 310px;
+}
+
+.main.withCart {
+  padding-right: calc(20% + 20px);
+}
+
+/* Mobile Submenu Toggle Button */
+.mobileSubmenuToggle {
+  display: none;
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 997;
+  background: #1A4D2E;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  gap: 8px;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.mobileSubmenuToggle:hover {
+  background: #166534;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.mobileSubmenuToggle:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+    padding: 80px 16px 16px 16px;
+  }
+  
+  .main.withSubmenu {
+    margin-left: 0;
+  }
+  
+  .main.withCart {
+    padding-right: 16px;
+  }
+  
+  .mobileSubmenuToggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileSubmenuToggle {
+    top: 80px;
+    right: 16px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}

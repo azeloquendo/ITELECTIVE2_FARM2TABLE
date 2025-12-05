@@ -1,0 +1,463 @@
+.container {
+  max-width: none;
+  margin: 0;
+  padding: 20px;
+  min-height: 80vh;
+  width: 100%;
+  position: relative;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* View Mode Toggle Buttons - Original layout for larger screens */
+.viewToggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 16px;
+}
+
+.toggleButton {
+  padding: 12px 24px;
+  border: 2px solid #FFB319;
+  border-radius: 12px;
+  background: white;
+  color: #FFB319;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  /* 3D Shadow Effect */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  position: relative;
+  transform: translateY(0);
+  white-space: nowrap;
+}
+
+.toggleButton:hover {
+  background: #FFF9E6;
+  transform: translateY(-2px);
+  /* Enhanced 3D effect on hover */
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.toggleButton:active {
+  transform: translateY(1px);
+  /* Pressed state */
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggleButton.active {
+  background: #FFE194;
+  color: #000000;
+  border-color: #FFE194;
+  /* Enhanced 3D effect for active state */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(1px);
+}
+
+.toggleButton.active:hover {
+  background: #FFE194;
+  transform: translateY(0px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    0 3px 6px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* Search and Filter Controls - Matching localFarms */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 16px;
+}
+
+.searchContainer {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #1A4D2E;
+  box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
+  transform: translateY(-1px);
+}
+
+.searchInput::placeholder {
+  color: #999;
+}
+
+.filterControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto; /* Push to the right like localFarms */
+}
+
+/* Custom Dropdown Styles - Using the same 3D style as localFarms */
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 2px solid #FFB319;
+  border-radius: 12px;
+  background: #FFE194; /* Yellow background like active state */
+  color: #000000; /* Black text like active state */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  min-width: 180px;
+  justify-content: space-between;
+  white-space: nowrap;
+  
+  /* EXACT 3D effect from localFarms */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(1px);
+  border-color: #FFE194;
+}
+
+.dropdownButton:hover {
+  background: #FFE194;
+  transform: translateY(0px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    0 3px 6px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+.dropdownButton:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 8px;
+  padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  min-width: 180px;
+  width: 100%;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownItem:hover {
+  background: #FFF9E6;
+  color: #000;
+}
+
+.dropdownItem.selected {
+  background: #FFE194;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Arrow styles */
+.arrow {
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.2s ease;
+}
+
+.arrowDown {
+  transform: rotate(45deg);
+}
+
+.arrowUp {
+  transform: rotate(-135deg);
+}
+
+/* Products Grid - 4 cards per row */
+.productsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Exactly 4 columns */
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+.gridItem {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+
+.loadingState {
+  text-align: center;
+  padding: 3rem;
+  color: #718096;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1A4D2E;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState {
+  text-align: center;
+  padding: 3rem;
+  color: #e53e3e;
+  background: #fed7d7;
+  border-radius: 0.5rem;
+}
+
+.retryButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #1A4D2E;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.retryButton:hover {
+  background: #0f3d23;
+}
+
+.indexButton {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.indexButton:hover {
+  background: #2c5aa0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: #718096;
+}
+
+.emptySubtext {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .productsContainer {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards on large tablets */
+  }
+}
+
+@media (max-width: 900px) {
+  .productsContainer {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .searchContainer {
+    max-width: none;
+  }
+  
+  .filterControls {
+    justify-content: stretch;
+    margin-left: 0;
+  }
+  
+  .dropdownButton {
+    min-width: auto;
+    flex: 1;
+  }
+  
+  .productsContainer {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards on small tablets */
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .searchInput {
+    padding: 12px 14px 12px 44px;
+  }
+
+  /* On smaller screens, make toggle buttons take full width but stay horizontal */
+  .viewToggle {
+    flex-direction: row; /* Keep buttons side by side */
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .toggleButton {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    flex: 1; /* Make buttons equal width on mobile */
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .productsContainer {
+    grid-template-columns: 1fr; /* 1 card on mobile */
+    gap: 16px;
+  }
+  
+  .gridItem {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .productsContainer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .viewToggle {
+    gap: 6px;
+  }
+  
+  .toggleButton {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .viewToggle {
+    gap: 4px;
+  }
+  
+  .toggleButton {
+    padding: 8px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .toggleButton {
+    padding: 6px 8px;
+    font-size: 0.7rem;
+  }
+}

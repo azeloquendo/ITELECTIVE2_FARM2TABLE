@@ -1,0 +1,1147 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #273F4F;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #273F4F;
+  max-width: 600px;
+  margin: 0;
+  text-align: left;
+  opacity: 0.8;
+}
+
+/* Search Section */
+.searchSection {
+  margin-bottom: 40px;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 600px;
+  margin: 0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 16px 16px 16px 48px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #273F4F;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #1A4D2E;
+  box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+/* Suggested FAQs */
+.suggestedFaqs {
+  max-width: 600px;
+  margin: 16px 0 0 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.suggestedTitle {
+  padding: 12px 20px;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #273F4F;
+  background: #f8faf8;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.suggestedItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+  color: #273F4F;
+  gap: 12px;
+  text-align: left;
+}
+
+.suggestedItem:hover {
+  background: #f9fafb;
+}
+
+.suggestedItem:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.suggestedIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.suggestedText {
+  flex: 1;
+  text-align: left;
+}
+
+/* 3D Support Info with Images */
+.highlightedSupport {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.supportFeature {
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  border-radius: 20px;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 160px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    0 6px 10px rgba(0, 0, 0, 0.15),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.supportFeature:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 8px 15px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.supportHours {
+  background-image: url('/images/helpCenter/contactSupport1.png');
+}
+
+.responseTime {
+  background-image: url('/images/helpCenter/contactSupport2.png');
+}
+
+.supportContent {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.supportContent h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.supportContent p {
+  font-size: 1.1rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.4;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Two Column Contact Grid - CHANGED TO SINGLE COLUMN */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: stretch;
+  margin-bottom: 40px;
+}
+
+/* Chat Container - No border radius */
+.chatContainer {
+  background: white;
+  border-radius: 0;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.optionHeader {
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.optionHeader h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #273F4F;
+  margin-bottom: 8px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.optionHeader p {
+  color: #273F4F;
+  margin: 0;
+  text-align: left;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+/* Messenger-style Chat */
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.chatMessages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  display: flex;
+  max-width: 80%;
+}
+
+.botMessage {
+  align-self: flex-start;
+}
+
+.userMessage {
+  align-self: flex-end;
+}
+
+.messageContent {
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.botMessage .messageContent {
+  background: #F5F0E6;
+  color: #273F4F;
+  border: 1px solid #E8DFCA;
+  border-bottom-left-radius: 6px;
+}
+
+.userMessage .messageContent {
+  background: #E8DFCA;
+  color: #273F4F;
+  border-bottom-right-radius: 6px;
+}
+
+.messageText {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+.messageTime {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  display: block;
+  text-align: right;
+  color: #273F4F;
+}
+
+.userMessage .messageTime {
+  color: #273F4F;
+}
+
+.botMessage .messageTime {
+  text-align: left;
+  color: #273F4F;
+}
+
+/* Chat Input */
+.chatInputContainer {
+  display: flex;
+  padding: 16px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  gap: 12px;
+}
+
+.chatInput {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  outline: none;
+  color: #273F4F;
+}
+
+.chatInput:focus {
+  border-color: #1A4D2E;
+}
+
+.chatInput::placeholder {
+  color: #9ca3af;
+}
+
+.sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #F0E491;
+  color: #273F4F;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: #e6d883;
+}
+
+.sendButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  color: #6b7280;
+}
+
+/* Form Container - No border radius and positioned below chat */
+.formContainer {
+  background: white;
+  border-radius: 0;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  overflow: hidden;
+}
+
+/* Success Message */
+.successMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #dcfce7;
+  color: #273F4F;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #bbf7d0;
+  text-align: left;
+}
+
+.successMessage strong {
+  display: block;
+  margin-bottom: 4px;
+  text-align: left;
+  color: #273F4F;
+}
+
+.successMessage p {
+  margin: 0;
+  font-size: 0.9rem;
+  text-align: left;
+  color: #273F4F;
+  opacity: 0.8;
+}
+
+/* Contact Form - With proper scrolling */
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Form Row Layout */
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.formCompact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0;
+  min-height: 0;
+  overflow-x: hidden;
+}
+
+/* Ensure form groups in rows have proper spacing */
+.formRow .formGroup {
+  margin-bottom: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #273F4F;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.formInput,
+.formTextarea {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: white;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  color: #273F4F;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #1A4D2E;
+  box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+/* Custom Dropdown Container */
+.dropdownContainer {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  color: #273F4F;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.dropdownButton:hover {
+  border-color: #1A4D2E;
+}
+
+.dropdownButton:focus {
+  outline: none;
+  border-color: #1A4D2E;
+  box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
+}
+
+/* Arrow styles matching freshArrivals */
+.arrow {
+  border: solid #273F4F;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.2s ease;
+  margin-left: auto;
+}
+
+.arrowDown {
+  transform: rotate(45deg);
+}
+
+.arrowUp {
+  transform: rotate(-135deg);
+}
+
+/* Dropdown List matching freshArrivals */
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 8px;
+  padding: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 14px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #273F4F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* #E8DFCA hover for dropdown items */
+.dropdownItem:hover {
+  background: #E8DFCA;
+  color: #273F4F;
+}
+
+.dropdownItem.selected {
+  background: #f3f4f6;
+  color: #273F4F;
+  font-weight: 600;
+}
+
+/* Hide native select and use custom dropdown */
+.formSelect {
+  display: none;
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 70px;
+  max-height: 100px;
+}
+
+/* Custom scrollbar for form */
+.formCompact::-webkit-scrollbar {
+  width: 4px;
+}
+
+.formCompact::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.formCompact::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.formCompact::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Form Actions - Removed space below message */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0; /* Removed top margin */
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+/* 3D Submit Button */
+.submitButton {
+  padding: 10px 20px;
+  background: #1A4D2E;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #166534;
+  color: white;
+  box-shadow: 
+    inset 0 -3px 6px rgba(0, 0, 0, 0.12),
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    0 3px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.submitButton:active:not(:disabled) {
+  background: #14532d;
+  color: white;
+  transform: translateY(0);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:disabled {
+  background: #9ca3af;
+  color: white;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Spinner */
+.spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* FAQ Section - No border radius */
+.faqSection {
+  background: white;
+  border-radius: 0;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.sectionHeader {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #273F4F;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.sectionSubtitle {
+  color: #273F4F;
+  margin: 0;
+  text-align: left;
+  opacity: 0.8;
+}
+
+/* Category Filter with 3D Buttons */
+.categoryFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+  justify-content: flex-start;
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: white;
+  color: #273F4F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent text wrapping */
+  
+  /* 3D Effect */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.05),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+  border: 1px solid #e5e7eb;
+}
+
+.categoryButton:hover {
+  border-color: #1A4D2E;
+  color: #273F4F;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+.categoryButton.active {
+  background: #F0E491;
+  color: #273F4F;
+  border-color: #F0E491;
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.categoryIcon {
+  font-size: 0.9rem;
+}
+
+/* FAQ List */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faqItem {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.faqItem:hover {
+  border-color: #d1d5db;
+}
+
+/* 3D FAQ Buttons with white background and #E8DFCA on hover */
+.faqQuestion {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  border: none;
+  background: white;
+  color: #273F4F;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+  gap: 12px;
+  
+  /* Enhanced 3D Effect */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.faqQuestion:hover {
+  background: #E8DFCA;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.12),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95);
+}
+
+.faqQuestion:active {
+  background: #E8DFCA;
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.faqIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.faqText {
+  flex: 1;
+  text-align: left;
+}
+
+/* FAQ Answer with white background and spacing */
+.faqAnswer {
+  padding: 25px 20px 20px;
+  color: #273F4F;
+  line-height: 1.6;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 0;
+  text-align: left;
+  opacity: 0.8;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.faqAnswer p {
+  margin: 0;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: left;
+  padding: 40px 20px;
+  color: #273F4F;
+}
+
+.emptySubtext {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: left;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .faqSection {
+    padding: 20px;
+  }
+
+  .highlightedSupport {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contactGrid {
+    gap: 20px;
+  }
+
+  .chatContainer,
+  .formContainer {
+    padding: 20px;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .supportFeature {
+    padding: 20px;
+    min-height: 140px;
+  }
+
+  .supportContent h3 {
+    font-size: 1.2rem;
+  }
+
+  .supportContent p {
+    font-size: 1rem;
+  }
+
+  /* Category Filter - Single line with horizontal scroll on mobile */
+  .categoryFilter {
+    display: flex;
+    flex-wrap: nowrap; /* Force single line */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 8px;
+    margin-bottom: 30px;
+    padding-bottom: 12px; /* Space for scrollbar */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: thin; /* Firefox */
+  }
+
+  .categoryFilter::-webkit-scrollbar {
+    height: 6px; /* Horizontal scrollbar height */
+  }
+
+  .categoryFilter::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .categoryFilter::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+
+  .categoryFilter::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  .categoryButton {
+    white-space: nowrap;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+  }
+
+  .formCompact {
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .chatContainer,
+  .formContainer {
+    padding: 16px;
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  .supportFeature {
+    padding: 16px;
+    min-height: 120px;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+
+  /* Enhanced mobile category filter */
+  .categoryFilter {
+    gap: 6px;
+    padding-bottom: 10px;
+  }
+
+  .categoryButton {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Typing Indicator */
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+}
+
+.typingIndicator span {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #666;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typingIndicator span:nth-child(1) { animation-delay: -0.32s; }
+.typingIndicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+  0%, 80%, 100% { 
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Auto-scroll fix */
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Quick Actions Styles - ADD THESE TO YOUR EXISTING CSS */
+.quickActions {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  border: 1px solid #e5e7eb;
+}
+
+.quickActionsHeader {
+  margin-bottom: 12px;
+}
+
+.quickActionsHeader p {
+  margin: 0;
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
+  text-align: left;
+}
+
+.quickActionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.quickActionButton {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.quickActionButton:hover {
+  background: #e7f1ff;
+  border-color: #0d6efd;
+  color: #0d6efd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.quickActionButton:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.quickActionButton:disabled {
+  background: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments for quick actions */
+@media (max-width: 768px) {
+  .quickActions {
+    padding: 12px;
+    margin: 12px 0;
+  }
+  
+  .quickActionButton {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quickActions {
+    padding: 10px;
+  }
+  
+  .quickActionButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,476 @@
+.mobileHeader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #f8f9fa;
+    color: #273F4F;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e9ecef;
+}
+
+.menuToggle {
+    background: none;
+    border: none;
+    color: #273F4F;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.menuToggle:hover {
+    background: rgba(39, 63, 79, 0.1);
+}
+
+.mobileTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    color: #273F4F;
+}
+
+.headerSpacer {
+    width: 40px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0 1rem 0;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 70px;
+    height: calc(100vh - 20px);
+    background: #f8f9fa;
+    color: #273F4F;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    z-index: 999;
+    border: 1px solid #e9ecef;
+}
+
+.navContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 0;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    gap: 0;
+    padding: 10px;
+    border-radius: 12px;
+    color: #273F4F;
+    margin: 2px 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+    position: relative;
+}
+
+.navItem:hover {
+    background: #E8DFCA;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navItem.active {
+    background: #E8DFCA;
+    /* 3D Shadow Effect */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* ONLY active items get orange color */
+.navItem.active svg {
+    color: #DF711B;
+}
+
+.navItem.active .navText {
+    color: #DF711B;
+}
+
+.navText {
+    display: none;
+    color: #273F4F;
+}
+
+.bottomActions {
+    margin-top: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 10px;
+}
+
+.logoutBtn {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    color: #DF711B; /* Changed to orange */
+    background: #E8DFCA;
+    border-radius: 12px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    outline: none;
+    /* EXACT SAME 3D Shadow Effect as Active Buttons */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Logout button icon should be orange */
+.logoutBtn svg {
+    color: #DF711B;
+}
+
+/* Logout button text should be orange */
+.logoutBtn .navText {
+    color: #DF711B;
+}
+
+.logoutBtn:hover {
+    background: #d4c9b0;
+    /* Enhanced 3D Shadow on Hover */
+    box-shadow: 
+        inset 0 -3px 6px rgba(0,0,0,0.12),
+        inset 0 3px 6px rgba(255,255,255,0.9),
+        0 6px 12px rgba(0,0,0,0.2),
+        0 3px 6px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.logoutBtn:active {
+    background: #c5b89a;
+    transform: translateY(0);
+    /* Pressed State */
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.15),
+        inset 0 -1px 2px rgba(255,255,255,0.4),
+        0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logoutBtn:focus {
+    outline: none;
+    /* Focus state */
+    box-shadow: 
+        inset 0 -2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1),
+        0 0 0 2px rgba(232, 223, 202, 0.5);
+}
+
+@media (max-width: 768px) {
+    .mobileHeader {
+        display: flex;
+    }
+    
+    .overlay {
+        display: block;
+    }
+    
+    .sidebar {
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 240px;
+        border-radius: 0;
+        transform: translateX(-100%);
+        padding-top: 70px;
+        border: none;
+        border-right: 1px solid #e9ecef;
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    
+    .sidebar.mobileOpen {
+        transform: translateX(0);
+    }
+    
+    .logoContainer {
+        justify-content: flex-start;
+        padding: 1rem 0 1.5rem 1.5rem;
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+    }
+    
+    .logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .navItem {
+        height: 50px;
+        margin: 3px 15px;
+        padding: 12px 16px;
+        justify-content: flex-start;
+        gap: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .navItem:hover {
+        background: #E8DFCA;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .navItem.active {
+        background: #E8DFCA;
+        /* Enhanced 3D Shadow for Mobile */
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+    
+    /* ONLY active items get orange color on mobile */
+    .navItem.active svg {
+        color: #DF711B;
+    }
+    
+    .navItem.active .navText {
+        color: #DF711B;
+    }
+    
+    .navText {
+        display: block;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 1;
+        width: auto;
+        color: #273F4F;
+    }
+    
+    .logoutBtn {
+        width: calc(100% - 30px);
+        margin: 0 15px;
+        height: 50px;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 0 14px;
+        color: #DF711B; /* Changed to orange */
+        /* EXACT SAME 3D Shadow Effect as Active Mobile Buttons */
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+    
+    /* Logout button icon should be orange on mobile too */
+    .logoutBtn svg {
+        color: #DF711B;
+    }
+    
+    /* Logout button text should be orange on mobile too */
+    .logoutBtn .navText {
+        color: #DF711B;
+    }
+    
+    .logoutBtn:hover {
+        background: #d4c9b0;
+        /* Enhanced hover effect for mobile */
+        box-shadow: 
+            inset 0 -4px 8px rgba(0,0,0,0.15),
+            inset 0 4px 8px rgba(255,255,255,0.9),
+            0 8px 16px rgba(0,0,0,0.25),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-3px);
+    }
+    
+    .logoutBtn:active {
+        background: #c5b89a;
+        transform: translateY(-1px);
+        /* Pressed state for mobile */
+        box-shadow: 
+            inset 0 3px 6px rgba(0,0,0,0.15),
+            inset 0 -2px 4px rgba(255,255,255,0.4),
+            0 3px 6px rgba(0,0,0,0.15);
+    }
+    
+    .logoutBtn:focus {
+        outline: none;
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15),
+            0 0 0 2px rgba(232, 223, 202, 0.5);
+    }
+    
+    .bottomActions {
+        gap: 10px;
+        padding-bottom: 15px;
+    }
+}
+
+/* Small Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    .logoContainer {
+        padding: 0.75rem 0 1rem 1rem;
+    }
+    
+    .navItem {
+        height: 48px;
+        margin: 2px 12px;
+        padding: 10px 14px;
+        gap: 10px;
+    }
+    
+    .navItem.active {
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+    }
+    
+    /* ONLY active items get orange color on small mobile */
+    .navItem.active svg {
+        color: #DF711B;
+    }
+    
+    .navItem.active .navText {
+        color: #DF711B;
+    }
+    
+    .navText {
+        font-size: 0.95rem;
+        color: #273F4F;
+    }
+    
+    .logoutBtn {
+        width: calc(100% - 24px);
+        margin: 0 12px;
+        height: 48px;
+        padding: 0 12px;
+        gap: 10px;
+        color: #DF711B; /* Changed to orange */
+        /* EXACT SAME 3D Shadow Effect as Active Small Mobile Buttons */
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    /* Logout button icon should be orange on small mobile too */
+    .logoutBtn svg {
+        color: #DF711B;
+    }
+    
+    /* Logout button text should be orange on small mobile too */
+    .logoutBtn .navText {
+        color: #DF711B;
+    }
+    
+    .logoutBtn:hover {
+        background: #d4c9b0;
+        box-shadow: 
+            inset 0 -3px 6px rgba(0,0,0,0.12),
+            inset 0 3px 6px rgba(255,255,255,0.9),
+            0 6px 12px rgba(0,0,0,0.2),
+            0 3px 6px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+    
+    .logoutBtn:active {
+        background: #c5b89a;
+        transform: translateY(0);
+        box-shadow: 
+            inset 0 2px 4px rgba(0,0,0,0.15),
+            inset 0 -1px 2px rgba(255,255,255,0.4),
+            0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logoutBtn:focus {
+        outline: none;
+        box-shadow: 
+            inset 0 -2px 4px rgba(0,0,0,0.1),
+            inset 0 2px 4px rgba(255,255,255,0.8),
+            0 4px 8px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1),
+            0 0 0 2px rgba(232, 223, 202, 0.5);
+    }
+}

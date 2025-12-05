@@ -1,0 +1,1196 @@
+================================================================================
+FARM2TABLE API DESIGN DOCUMENTATION
+================================================================================
+
+Last Updated: December 5, 2025
+Application: Farm2Table v1.0
+Tech Stack: Next.js 15.5.4 | React 19.1.0 | Firebase 12.5.0 | React Query 5.90.2
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+1. ARCHITECTURE OVERVIEW
+2. THIRD-PARTY API INTEGRATIONS
+3. CUSTOM API ENDPOINTS
+4. REACT QUERY IMPLEMENTATION
+5. FIREBASE SERVICES
+6. ERROR HANDLING & STATUS CODES
+7. REQUEST/RESPONSE EXAMPLES
+
+================================================================================
+1. ARCHITECTURE OVERVIEW
+================================================================================
+
+TECHNOLOGY STACK:
+
+Database Layer:
+- Firebase Firestore (NoSQL document database)
+- Firebase Authentication (User management & role detection)
+- Firebase Admin SDK (Server-side operations)
+
+API Layer:
+- Next.js App Router (Route handlers in /src/app/api)
+- Next.js Pages API (Legacy routes in /pages/api)
+
+Client Data Management:
+- React Query (@tanstack/react-query v5.90.2)
+- React Context API (AuthContext, CartContext, CategoryContext)
+- React Hooks (Custom hooks for business logic)
+
+Third-Party Services:
+- Google Gemini AI (Product descriptions & recommendations)
+- Cloudinary (Image hosting & optimization)
+- Resend (Email service)
+- Supabase (Optional database integration)
+
+IMAGE PROCESSING:
+- Sharp (Image resizing & optimization)
+- Jimp (Image manipulation)
+- Tesseract.js (OCR for document scanning)
+
+================================================================================
+2. THIRD-PARTY API INTEGRATIONS
+================================================================================
+
+---INTEGRATION: Google Gemini AI---
+Service: AI-powered product description generation
+Documentation: https://ai.google.dev/
+
+Endpoint Used: Google Generative AI SDK
+Model: gemini-2.0-flash
+
+Configuration:
+- API Key stored in: .env.local (GEMINI_API_KEY)
+- Hosted in: src/utils/lib/geminiService.ts
+
+Features:
+✓ Generates product descriptions from user prompts
+✓ Uses product context (farm name, category, unit)
+✓ Returns 3 description options
+✓ Fallback descriptions if API fails
+
+Usage:
+import { GeminiService } from '@/utils/lib/geminiService';
+
+const response = await GeminiService.chatGenerateDescription(
+  "Generate a fresh produce description",
+  { farmName: "Green Valley Farm", category: "vegetables", unit: "kg" }
+);
+// Returns: Multi-option description text
+
+
+---INTEGRATION: Cloudinary---
+Service: Cloud image storage, optimization, and transformation
+Documentation: https://cloudinary.com/documentation
+
+API Endpoint: https://api.cloudinary.com/v1_1/{cloud_name}/image/upload
+
+Configuration:
+- Cloud Name: dat1ycsju
+- API Key: 421112953636687
+- API Secret: CH-K_O7TDdWFEEQfAxnc-7CYxhE
+- Folder Path: farm2table/products
+
+Features:
+✓ Base64 image upload
+✓ Automatic image optimization
+✓ Responsive image sizing (800x600)
+✓ Auto quality & format detection
+✓ Secure URL responses
+
+Transformations Applied:
+- Width: 800px, Height: 600px (Limit)
+- Quality: Auto
+- Format: Auto (WebP for browsers that support)
+
+Upload Process:
+1. Client captures/selects image
+2. Converts to Base64
+3. Sends to /api/upload-cloudinary
+4. Server uploads to Cloudinary
+5. Returns secure URL for storage
+
+Usage:
+const response = await fetch('/api/upload-cloudinary', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    images: [
+      { base64Data: 'data:image/jpeg;base64,...', fileName: 'product.jpg' }
+    ]
+  })
+});
+const data = await response.json();
+// Returns: { success: true, imageUrls: ['https://cloudinary.com/...'] }
+
+
+---INTEGRATION: Resend---
+Service: Email delivery service for transactional emails
+Documentation: https://resend.com/docs
+
+Configuration:
+- API Key stored in: .env.local (RESEND_API_KEY)
+- From Address: Farm2Table <onboarding@resend.dev>
+- Admin Email: farm2table.pushpop@gmail.com
+
+Features:
+✓ Contact form submission emails
+✓ Order confirmation emails
+✓ Customer auto-reply emails
+✓ HTML-formatted templates
+✓ Real-time email tracking
+
+Email Types Sent:
+1. Contact Form Submission (to admin)
+2. Contact Confirmation (to customer)
+3. Order Confirmation (to buyer & seller)
+4. Order Status Updates
+
+Email Template Features:
+- Responsive design
+- Green theme (#1A4D2E, #16a34a)
+- Order details display
+- Tracking information
+- Delivery instructions
+- Professional formatting
+
+Usage:
+const resend = new Resend(process.env.RESEND_API_KEY);
+await resend.emails.send({
+  from: 'Farm2Table <onboarding@resend.dev>',
+  to: ['recipient@example.com'],
+  subject: 'Order Confirmation',
+  html: '<html>...</html>'
+});
+
+
+---INTEGRATION: Supabase---
+Service: Optional alternative to Firebase
+Type: PostgreSQL + Real-time Database
+Installed: @supabase/supabase-js ^2.58.0
+
+Status: Available but not currently primary (Firebase is primary)
+Use Case: Can be extended for additional data requirements
+
+
+================================================================================
+3. CUSTOM API ENDPOINTS
+================================================================================
+
+BASE URL: http://localhost:3000/api (local) | https://your-domain.com/api (production)
+
+---ENDPOINT: POST /api/orders/create---
+Description: Create a new order from cart
+Method: POST
+Path: src/app/api/orders/create/route.ts
+
+Request Parameters:
+{
+  "id": "order_uuid_string",
+  "orderNumber": "ORD-1733396800123",
+  "buyerId": "user_123",
+  "buyerInfo": {
+    "id": "user_123",
+    "name": "Juan Dela Cruz",
+    "address": "123 Main St, Quezon City",
+    "contact": "09123456789",
+    "email": "juan@example.com"
+  },
+  "buyerName": "Juan Dela Cruz",
+  "contact": "09123456789",
+  "address": "123 Main St, Quezon City",
+  "deliveryMethod": "Delivery" or "Pickup",
+  "deliveryDate": "2025-12-10",
+  "deliveryTime": "10:00 AM - 12:00 PM",
+  "deliveryAddress": "456 Second Ave, Quezon City" (required if deliveryMethod='Delivery'),
+  "pickupLocation": "Farm Location A" (required if deliveryMethod='Pickup'),
+  "deliveryFee": 150,
+  "deliveryOption": "Standard",
+  "paymentMethod": "Credit Card" or "Cash on Delivery",
+  "paymentType": "cash" or "digital",
+  "paymentStatus": "pending" or "completed",
+  "products": [
+    {
+      "name": "Tomatoes",
+      "quantity": 5,
+      "unitPrice": 50,
+      "unit": "kg"
+    }
+  ],
+  "sellers": [
+    {
+      "sellerId": "seller_001",
+      "sellerName": "Green Valley Farm",
+      "items": [
+        {
+          "productId": "prod_123",
+          "name": "Tomatoes",
+          "price": 50,
+          "quantity": 5,
+          "notes": "Ripe and fresh",
+          "unit": "kg",
+          "image": "https://cloudinary.com/..."
+        }
+      ],
+      "subtotal": 250
+    }
+  ],
+  "subtotal": 250,
+  "totalPrice": 400,
+  "specialInstructions": "Please keep cold",
+  "itemCount": 5,
+  "productCount": 1
+}
+
+Validation Rules:
+- buyerId: REQUIRED
+- products: REQUIRED & must not be empty
+- orderNumber: REQUIRED & must be unique
+- deliveryMethod: REQUIRED (either 'Delivery' or 'Pickup')
+- deliveryAddress: REQUIRED if deliveryMethod='Delivery'
+- pickupLocation: REQUIRED if deliveryMethod='Pickup'
+
+Response Body (Success - 200):
+{
+  "success": true,
+  "orderId": "firestore_doc_id",
+  "orderNumber": "ORD-1733396800123",
+  "message": "Order created successfully"
+}
+
+Response Body (Error):
+{
+  "error": "Error message describing the issue",
+  "message": "Details about what went wrong"
+}
+
+Status Codes:
+- 200 OK: Order created successfully
+- 400 Bad Request: Missing or invalid required fields
+  - Example: "Buyer ID is required"
+  - Example: "Order must contain products"
+  - Example: "Delivery address is required for delivery orders"
+- 500 Internal Server Error: Database or server error
+  - Example: "Failed to create order"
+
+Stored Data:
+Orders stored in Firestore collection 'orders' with:
+- Order metadata (id, orderNumber, timestamps)
+- Buyer information (name, contact, address)
+- Delivery details (method, date, time, fee)
+- Payment information (method, status)
+- Products list with seller grouping
+- Smart matching info (if applicable)
+
+
+---ENDPOINT: POST /api/contact---
+Description: Submit contact form from landing page
+Method: POST
+Path: src/app/api/contact/route.ts
+
+Request Parameters:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "I'm interested in becoming a seller",
+  "type": "partnership_inquiry" (optional),
+  "source": "landing_page" (optional)
+}
+
+Response Body (Success - 200):
+{
+  "success": true,
+  "ticketId": "LND-1733396800123",
+  "message": "Contact form submitted successfully"
+}
+
+Response Body (Error):
+{
+  "error": "Error message",
+  "message": "Detailed error description"
+}
+
+Status Codes:
+- 200 OK: Contact submitted successfully
+- 400 Bad Request: Missing required fields
+- 500 Internal Server Error: Email or database error
+
+Side Effects:
+1. Saves to Firestore collection 'landingPageContacts'
+2. Sends email to admin: farm2table.pushpop@gmail.com
+3. Sends auto-reply email to customer
+4. Generates unique ticket ID (LND-{timestamp})
+
+Data Stored:
+{
+  "ticketId": "LND-1733396800123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "Contact message content",
+  "type": "landing_page_contact",
+  "source": "landing_page",
+  "status": "new",
+  "createdAt": {timestamp},
+  "updatedAt": {timestamp},
+  "timestamp": "Philippine Time formatted string"
+}
+
+
+---ENDPOINT: POST /api/gemini/chat---
+Description: Generate AI-powered product descriptions
+Method: POST
+Path: src/app/api/gemini/chat/route.ts
+
+Request Parameters:
+{
+  "userMessage": "Generate a description for fresh tomatoes",
+  "productContext": {
+    "farmName": "Green Valley Farm",
+    "category": "vegetables",
+    "unit": "kg"
+  }
+}
+
+Response Body (Success - 200):
+{
+  "reply": "OPTION 1:\nFresh tomatoes from Green Valley Farm...\n\nOPTION 2:\nPerfect ripe tomatoes...\n\nOPTION 3:\nPremium quality tomatoes..."
+}
+
+Response Body (Error):
+{
+  "error": "Error message"
+}
+
+Status Codes:
+- 200 OK: Description generated successfully
+- 500 Internal Server Error: Gemini API error or network failure
+
+Features:
+- Uses Google Gemini 2.0 Flash model
+- Generates 3 description options
+- Incorporates farm and product context
+- Provides fallback descriptions on failure
+- No rate limiting documented
+
+
+---ENDPOINT: POST /api/upload-cloudinary---
+Description: Upload product images to Cloudinary
+Method: POST
+Path: pages/api/upload-cloudinary.ts
+
+Request Parameters:
+{
+  "images": [
+    {
+      "base64Data": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+      "fileName": "tomatoes.jpg"
+    },
+    {
+      "base64Data": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+      "fileName": "tomatoes2.jpg"
+    }
+  ]
+}
+
+Response Body (Success - 200):
+{
+  "success": true,
+  "imageUrls": [
+    "https://res.cloudinary.com/dat1ycsju/image/upload/v1733396800/farm2table/products/...",
+    "https://res.cloudinary.com/dat1ycsju/image/upload/v1733396800/farm2table/products/..."
+  ]
+}
+
+Response Body (Error):
+{
+  "success": false,
+  "error": "Error message describing the failure"
+}
+
+Status Codes:
+- 200 OK: Images uploaded successfully
+- 400 Bad Request: No images provided or invalid format
+  - Example: "No images provided"
+  - Example: "Invalid base64 image data"
+- 405 Method Not Allowed: Request method is not POST
+- 500 Internal Server Error: Cloudinary upload error
+
+Configuration:
+- Max file size: 10MB per request
+- Accepted formats: JPEG, PNG, GIF, WebP
+- Image transformations: 800x600 limit, auto quality & format
+- Stored path: farm2table/products/
+- Returns secure HTTPS URLs
+
+Processing:
+1. Base64 data extracted from request
+2. Sent to Cloudinary uploader
+3. Automatic optimization applied
+4. Secure URL returned for database storage
+
+
+---ENDPOINT: POST /api/send-order-confirmation---
+Description: Send order confirmation emails to buyer and seller
+Method: POST
+Path: src/app/api/send-order-confirmation/routes.ts
+
+Request Parameters:
+{
+  "orderNumber": "ORD-1733396800123",
+  "buyerEmail": "buyer@example.com",
+  "buyerName": "Juan Dela Cruz",
+  "items": [
+    {
+      "name": "Tomatoes",
+      "quantity": 5,
+      "unitPrice": 50,
+      "total": 250
+    }
+  ],
+  "deliveryAddress": "123 Main St, Quezon City",
+  "deliveryTime": "2-3 days",
+  "totalPrice": 400
+}
+
+Response Body (Success - 200):
+{
+  "success": true,
+  "buyerEmailId": "resend_email_id_1",
+  "sellerEmailId": "resend_email_id_2",
+  "message": "Order confirmation emails sent"
+}
+
+Response Body (Error):
+{
+  "error": "Error message",
+  "buyerEmailSent": false/true,
+  "sellerEmailSent": false/true
+}
+
+Status Codes:
+- 200 OK: Emails sent successfully
+- 400 Bad Request: Missing required data
+- 500 Internal Server Error: Email service failure
+
+Email Content:
+1. Buyer Email:
+   - Order confirmation with number
+   - Item listing with quantities & prices
+   - Delivery address & estimated time
+   - Total amount due
+   - Support contact information
+
+2. Seller Email:
+   - New order notification
+   - Items to prepare
+   - Buyer contact information
+   - Delivery method
+   - Action required
+
+Email Templates:
+- Responsive HTML design
+- Farm2Table branding (green theme)
+- Clear payment breakdown
+- Delivery tracking info
+- Call-to-action buttons
+
+
+================================================================================
+4. REACT QUERY IMPLEMENTATION
+================================================================================
+
+REACT QUERY VERSION: @tanstack/react-query ^5.90.2
+
+---SETUP: QueryClientProvider---
+
+Location: Must wrap application in root layout or provider component
+
+Installation Required:
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,        // 5 minutes
+      gcTime: 1000 * 60 * 10,           // 10 minutes (formerly cacheTime)
+      retry: 1,
+      refetchOnWindowFocus: false
+    },
+    mutations: {
+      retry: 1
+    }
+  }
+});
+
+export function RootLayout({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
+}
+
+NOTE: QueryClientProvider currently NOT implemented in your app
+CURRENT STATE: Using Firebase listeners and Context API instead
+RECOMMENDATION: Consider migrating to React Query for standardized data fetching
+
+
+---QUERY KEYS STRUCTURE---
+
+If React Query were implemented, recommended key structure:
+
+// Buyer Marketplace
+['marketplace']
+['marketplace', 'products']
+['marketplace', 'products', categoryId]
+['marketplace', 'search', searchTerm]
+['marketplace', 'filters', filterObject]
+
+// Orders
+['orders']
+['orders', buyerId]
+['orders', orderId]
+['orders', 'seller', sellerId]
+
+// Products
+['products']
+['products', productId]
+['products', 'seller', sellerId]
+
+// User
+['user']
+['user', userId]
+['user', userId, 'profile']
+['user', userId, 'notifications']
+
+// Cart
+['cart']
+['cart', userId]
+
+
+---CUSTOM HOOK PATTERNS (Current Implementation)---
+
+Format Used in Application:
+
+useMarketplace Hook:
+```
+const useMarketplace = (selectedCategory: string = 'all') => {
+  const [products, setProducts] = useState<MarketplaceProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Fetch from Firebase
+    const unsubscribe = subscribeToProducts(categoryId, (data) => {
+      setProducts(data);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, [selectedCategory]);
+
+  return { products, loading, error };
+};
+```
+
+Current Data Fetching Pattern:
+- Firebase Firestore listeners for real-time updates
+- Direct Firestore queries with collection() and getDocs()
+- No centralized request caching
+- Manual state management with useState/useEffect
+
+
+---ERROR HANDLING (Without React Query)---
+
+Current Pattern:
+try {
+  const querySnapshot = await getDocs(query);
+  // Process data
+} catch (error) {
+  console.error('Error:', error);
+  setError(error.message);
+}
+
+Recommended React Query Pattern:
+const query = useQuery({
+  queryKey: ['products', categoryId],
+  queryFn: async () => {
+    try {
+      const querySnapshot = await getDocs(productsQuery);
+      return querySnapshot.docs.map(doc => doc.data());
+    } catch (error) {
+      throw new Error('Failed to fetch products');
+    }
+  },
+  onError: (error) => {
+    console.error('Query error:', error);
+    // Show user-friendly error message
+  }
+});
+
+if (query.isPending) return <LoadingSpinner />;
+if (query.isError) return <ErrorMessage error={query.error} />;
+return <ProductList products={query.data} />;
+
+
+================================================================================
+5. FIREBASE SERVICES
+================================================================================
+
+---FIREBASE CONFIGURATION---
+
+SDK Versions:
+- firebase: ^12.5.0 (Client SDK)
+- firebase-admin: ^13.6.0 (Admin SDK for server operations)
+
+Collections Structure:
+
+orders/
+  ├── {orderId}/
+  │   ├── orderNumber: string
+  │   ├── buyerId: string
+  │   ├── status: string ('pending', 'processing', 'shipped', 'completed')
+  │   ├── totalPrice: number
+  │   ├── products: array
+  │   ├── sellers: array
+  │   ├── createdAt: timestamp
+  │   ├── updatedAt: timestamp
+
+products/
+  ├── {productId}/
+  │   ├── name: string
+  │   ├── price: number
+  │   ├── stock: number
+  │   ├── farmName: string
+  │   ├── sellerId: string
+  │   ├── imageUrls: array
+  │   ├── category: string
+  │   ├── rating: number
+  │   ├── createdAt: timestamp
+
+sellers/
+  ├── {userId}/
+  │   ├── farmName: string
+  │   ├── email: string
+  │   ├── address: object
+  │   ├── idVerification: object
+  │   ├── logo: string
+  │   ├── followers: number
+
+buyers/
+  ├── {userId}/
+  │   ├── fullName: string
+  │   ├── email: string
+  │   ├── address: object
+  │   ├── deliveryAddress: object
+  │   ├── contact: string
+  │   ├── profilePic: string
+
+reviews/
+  ├── {reviewId}/
+  │   ├── productId: string
+  │   ├── userId: string
+  │   ├── rating: number
+  │   ├── comment: string
+  │   ├── isActive: boolean
+  │   ├── createdAt: timestamp
+
+landingPageContacts/
+  ├── {ticketId}/
+  │   ├── name: string
+  │   ├── email: string
+  │   ├── message: string
+  │   ├── type: string
+  │   ├── status: string
+  │   ├── createdAt: timestamp
+
+
+---FIREBASE AUTHENTICATION---
+
+Features:
+✓ Email/Password authentication
+✓ User role detection (seller, buyer, admin)
+✓ Persistent login with cookies
+✓ Auth state listener
+✓ Token-based authentication
+
+Role Detection Order:
+1. Check 'admins' collection (highest priority)
+2. Check 'sellers' collection
+3. Check 'buyers' collection
+4. Return null if no role found
+
+Auth Context Usage:
+const { user, userProfile, loading, userRole } = useAuth();
+
+- user: Firebase User object or null
+- userProfile: Extended profile with role
+- loading: Auth initialization state
+- userRole: 'admin' | 'seller' | 'buyer' | null
+
+
+---FIRESTORE QUERIES USED---
+
+Products by Category:
+const q = query(
+  collection(db, 'products'),
+  where('category', '==', categoryId),
+  where('status', '==', 'active'),
+  orderBy('createdAt', 'desc')
+);
+
+Orders by Seller (Real-time):
+const unsubscribe = onSnapshot(
+  query(collection(db, 'orders'), orderBy('createdAt', 'desc')),
+  (snapshot) => {
+    // Process orders, filter by seller
+  }
+);
+
+Reviews for Product:
+const reviewsQuery = query(
+  collection(db, 'reviews'),
+  where('productId', '==', productId),
+  where('isActive', '==', true),
+  orderBy('createdAt', 'desc')
+);
+
+Orders in Date Range:
+const ordersInRange = orders.filter(order => {
+  const orderDate = order.createdAt?.toDate?.();
+  return orderDate >= startDate && orderDate <= endDate;
+});
+
+
+---SERVER-SIDE OPERATIONS (Admin SDK)---
+
+Location: Used in API routes for server operations
+
+Operations:
+1. Create orders (POST /api/orders/create)
+2. Update order status
+3. Fetch seller data with admin privileges
+4. Batch operations for reports
+5. Data cleanup and maintenance
+
+Example:
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+
+const adminDb = getFirestore();
+const docRef = await adminDb.collection('orders').add(orderDoc);
+
+
+================================================================================
+6. ERROR HANDLING & STATUS CODES
+================================================================================
+
+---HTTP STATUS CODES---
+
+200 OK
+Description: Request succeeded, resource created or data retrieved
+Examples:
+- Order created successfully
+- Data fetched successfully
+- Email sent successfully
+- Image uploaded successfully
+
+400 Bad Request
+Description: Client error - invalid request parameters
+Common Causes:
+- Missing required fields
+- Invalid data format
+- Validation failed
+
+Examples:
+{
+  "error": "Buyer ID is required"
+}
+
+{
+  "error": "Order must contain products"
+}
+
+{
+  "error": "Delivery address is required for delivery orders"
+}
+
+{
+  "error": "No images provided"
+}
+
+405 Method Not Allowed
+Description: HTTP method not supported for endpoint
+Examples:
+- GET request to POST-only endpoint
+- DELETE request to read-only endpoint
+
+500 Internal Server Error
+Description: Server-side error, operation failed
+Common Causes:
+- Database connection error
+- Third-party API failure
+- Unhandled exception
+- Server crash
+
+Examples:
+{
+  "error": "Failed to create order",
+  "message": "Database connection timeout"
+}
+
+{
+  "error": "Failed to upload image",
+  "message": "Cloudinary service unavailable"
+}
+
+{
+  "error": "AI request failed",
+  "message": "Gemini API error"
+}
+
+
+---ERROR HANDLING PATTERNS---
+
+Try-Catch Blocks:
+try {
+  const result = await operation();
+  return NextResponse.json({ success: true, data: result });
+} catch (error: any) {
+  console.error('Operation failed:', error);
+  return NextResponse.json(
+    { error: 'Operation failed', message: error.message },
+    { status: 500 }
+  );
+}
+
+Validation Before Processing:
+if (!orderId) {
+  return NextResponse.json(
+    { error: 'Order ID is required' },
+    { status: 400 }
+  );
+}
+
+Firebase Error Handling:
+try {
+  const doc = await getDoc(docRef);
+  if (!doc.exists()) {
+    return null;
+  }
+  return doc.data();
+} catch (error) {
+  console.error('Firestore error:', error);
+  throw new Error('Failed to fetch data');
+}
+
+Promise Chain Error Handling:
+const products = await Promise.all(
+  querySnapshot.docs.map(async (doc) => {
+    try {
+      const reviews = await fetchProductReviews(doc.id);
+      return { ...product, reviews };
+    } catch (error) {
+      console.error(`Error for product ${doc.id}:`, error);
+      return { ...product, reviews: [] }; // Fallback
+    }
+  })
+);
+
+
+---CLIENT-SIDE ERROR HANDLING---
+
+Toast/Notification Display:
+try {
+  await createOrder(orderData);
+  showSuccess('Order created successfully');
+} catch (error) {
+  showError(error.message || 'Failed to create order');
+}
+
+Loading States:
+if (loading) return <LoadingSpinner />;
+if (error) return <ErrorMessage message={error} />;
+return <Content data={data} />;
+
+Retry Logic:
+const retryFetch = async (fn, retries = 3) => {
+  try {
+    return await fn();
+  } catch (error) {
+    if (retries > 0) {
+      await new Promise(r => setTimeout(r, 1000));
+      return retryFetch(fn, retries - 1);
+    }
+    throw error;
+  }
+};
+
+
+================================================================================
+7. REQUEST/RESPONSE EXAMPLES
+================================================================================
+
+---EXAMPLE 1: Create Order Request---
+
+Request:
+POST /api/orders/create
+Content-Type: application/json
+Authorization: Bearer {firebase_token} (if required)
+
+{
+  "id": "order_uuid_20251205_123456",
+  "orderNumber": "ORD-1733396800123",
+  "buyerId": "user_abc123def456",
+  "buyerInfo": {
+    "id": "user_abc123def456",
+    "name": "Maria Santos",
+    "address": "Unit 5, 123 Rizal St, Barangay Poblacion, Quezon City",
+    "contact": "09876543210",
+    "email": "maria@example.com"
+  },
+  "buyerName": "Maria Santos",
+  "contact": "09876543210",
+  "address": "Unit 5, 123 Rizal St, Barangay Poblacion, Quezon City",
+  "deliveryMethod": "Delivery",
+  "deliveryDate": "2025-12-10",
+  "deliveryTime": "10:00 AM - 12:00 PM",
+  "deliveryAddress": "Unit 5, 123 Rizal St, Barangay Poblacion, Quezon City",
+  "pickupLocation": null,
+  "deliveryFee": 150,
+  "deliveryOption": "Standard",
+  "paymentMethod": "Credit Card",
+  "paymentType": "digital",
+  "paymentStatus": "pending",
+  "products": [
+    {
+      "name": "Fresh Tomatoes",
+      "quantity": 5,
+      "unitPrice": 50,
+      "unit": "kg"
+    },
+    {
+      "name": "Organic Lettuce",
+      "quantity": 3,
+      "unitPrice": 40,
+      "unit": "bunch"
+    }
+  ],
+  "sellers": [
+    {
+      "sellerId": "seller_farm123",
+      "sellerName": "Green Valley Farm",
+      "items": [
+        {
+          "productId": "prod_tom001",
+          "name": "Fresh Tomatoes",
+          "price": 50,
+          "quantity": 5,
+          "notes": "Ripe and fresh",
+          "unit": "kg",
+          "image": "https://res.cloudinary.com/..."
+        }
+      ],
+      "subtotal": 250
+    },
+    {
+      "sellerId": "seller_organic456",
+      "sellerName": "Organic Greens Farm",
+      "items": [
+        {
+          "productId": "prod_let001",
+          "name": "Organic Lettuce",
+          "price": 40,
+          "quantity": 3,
+          "notes": "Fresh from farm",
+          "unit": "bunch",
+          "image": "https://res.cloudinary.com/..."
+        }
+      ],
+      "subtotal": 120
+    }
+  ],
+  "subtotal": 370,
+  "totalPrice": 520,
+  "specialInstructions": "Please keep vegetables refrigerated during delivery",
+  "itemCount": 8,
+  "productCount": 2
+}
+
+Response (Success):
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "success": true,
+  "orderId": "firestore_auto_generated_id",
+  "orderNumber": "ORD-1733396800123",
+  "message": "Order created successfully"
+}
+
+Response (Error - Missing buyerId):
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+  "error": "Buyer ID is required"
+}
+
+Response (Error - No products):
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+  "error": "Order must contain products"
+}
+
+
+---EXAMPLE 2: Upload Images Request---
+
+Request:
+POST /api/upload-cloudinary
+Content-Type: application/json
+
+{
+  "images": [
+    {
+      "base64Data": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABkAGADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ygnJ2eoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==",
+      "fileName": "tomato_product_1.jpg"
+    },
+    {
+      "base64Data": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABkAGADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ygnJ2eoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==",
+      "fileName": "tomato_product_2.jpg"
+    }
+  ]
+}
+
+Response (Success):
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "success": true,
+  "imageUrls": [
+    "https://res.cloudinary.com/dat1ycsju/image/upload/v1733396800/farm2table/products/abc123/image.jpg",
+    "https://res.cloudinary.com/dat1ycsju/image/upload/v1733396800/farm2table/products/def456/image.jpg"
+  ]
+}
+
+Response (Error - No images):
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+  "error": "No images provided"
+}
+
+
+---EXAMPLE 3: Contact Form Request---
+
+Request:
+POST /api/contact
+Content-Type: application/json
+
+{
+  "name": "Juan Dela Cruz",
+  "email": "juan.delacruz@example.com",
+  "message": "I am interested in partnering with Farm2Table as a seller. I operate a vegetable farm in Nueva Ecija and would like to know more about your seller program requirements and commission structure.",
+  "type": "partnership_inquiry",
+  "source": "landing_page"
+}
+
+Response (Success):
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "success": true,
+  "ticketId": "LND-1733396800123",
+  "message": "Contact form submitted successfully"
+}
+
+Stored in Firestore:
+{
+  "ticketId": "LND-1733396800123",
+  "name": "Juan Dela Cruz",
+  "email": "juan.delacruz@example.com",
+  "message": "I am interested in partnering...",
+  "type": "partnership_inquiry",
+  "source": "landing_page",
+  "status": "new",
+  "createdAt": Timestamp(seconds=1733396800, nanoseconds=123000000),
+  "updatedAt": Timestamp(seconds=1733396800, nanoseconds=123000000),
+  "timestamp": "December 5, 2025, 10:00:00 AM"
+}
+
+Emails Sent:
+1. To Admin: farm2table.pushpop@gmail.com
+   Subject: "🌱 NEW LANDING PAGE: Contact Form Submission"
+   Contains: Full contact details, message, reference ID
+
+2. To Customer: juan.delacruz@example.com
+   Subject: "Thank You for Contacting Farm2Table!"
+   Contains: Confirmation, ticket number, next steps
+
+
+---EXAMPLE 4: AI Product Description Request---
+
+Request:
+POST /api/gemini/chat
+Content-Type: application/json
+
+{
+  "userMessage": "Write a catchy description for fresh organic tomatoes from our farm that emphasizes quality and sustainability",
+  "productContext": {
+    "farmName": "Green Valley Organic Farm",
+    "category": "vegetables",
+    "unit": "kg"
+  }
+}
+
+Response (Success):
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "reply": "OPTION 1:\nFresh Organic Tomatoes from Green Valley Organic Farm - Experience the pure taste of nature with our sun-ripened, hand-picked organic tomatoes. Grown without synthetic pesticides or fertilizers, each tomato is a testament to sustainable farming practices and exceptional quality. Perfect for salads, cooking, and fresh consumption.\n\nOPTION 2:\nSustainably Grown Organic Tomatoes - Support local farming while enjoying premium quality produce. Our organic tomatoes are cultivated with care in Green Valley Organic Farm using only natural methods. Rich flavor, vibrant color, and nutritious goodness in every kg.\n\nOPTION 3:\nCertified Organic Tomatoes from Green Valley Farm - Taste the difference quality makes. Our carefully cultivated tomatoes are free from harmful chemicals and are grown following strict organic standards. Available in kg units, perfect for restaurants, markets, and home cooking."
+}
+
+Response (Error):
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+
+{
+  "error": "AI request failed"
+}
+
+
+================================================================================
+END OF API DESIGN DOCUMENTATION
+================================================================================
+
+Key Takeaways:
+
+1. Your app uses Firebase as primary database with real-time listeners
+2. Third-party integrations: Gemini AI, Cloudinary, Resend, Supabase
+3. Custom API routes in Next.js handle orders, contacts, uploads, AI requests
+4. React Query library installed but NOT currently implemented
+5. Error handling uses try-catch with HTTP status codes
+6. Email services automated for orders, contacts, confirmations
+7. Image optimization through Cloudinary transformation pipeline
+8. Role-based access control through Firebase collections
+9. No API authentication middleware currently visible (consider JWT)
+10. Consider implementing React Query for better cache management
+
+Recommendations:
+
+✓ Implement QueryClientProvider for standardized data fetching
+✓ Add API route authentication/authorization middleware
+✓ Implement request logging and monitoring
+✓ Add rate limiting on public endpoints
+✓ Document environment variables required (.env.local)
+✓ Implement API versioning (v1/, v2/)
+✓ Add API documentation endpoint (Swagger/OpenAPI)
+✓ Consider implementing webhooks for order status updates
+✓ Add API response caching headers
+✓ Implement API request/response compression

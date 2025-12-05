@@ -1,0 +1,44 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.58.0",
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.13.2",
+    "cloudinary": "^2.7.0",
+    "cookies-next": "^6.1.1",
+    "dotenv": "^17.2.3",
+    "firebase": "^12.5.0",
+    "firebase-admin": "^13.6.0",
+    "jimp": "^1.6.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.544.0",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-google-recaptcha": "^3.1.0",
+    "react-hook-form": "^7.64.0",
+    "react-leaflet": "^5.0.0",
+    "resend": "^6.4.2",
+    "sharp": "^0.34.5",
+    "tesseract.js": "^6.0.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^20",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.33",
+    "typescript": "^5"
+  }
+}

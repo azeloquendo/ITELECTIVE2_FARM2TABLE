@@ -1,0 +1,412 @@
+.orderGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+.orderCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #f0f0f0;
+  height: 420px;
+  min-height: 420px;
+}
+.orderCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.12),
+    0 12px 30px rgba(0, 0, 0, 0.08);
+  border-color: #4F6F52;
+}
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+.orderInfo {
+  flex: 1;
+}
+.orderId {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+.buyerContact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+.contactItem svg {
+  color: #004225;
+  flex-shrink: 0;
+}
+.tableContainer {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.orderTable {
+  border: 1px solid #1A4D2E;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 12px;
+  background: #F5E6D3;
+  border-bottom: 1px solid #1A4D2E;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.tableBody {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 220px;
+}
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 12px;
+  border-bottom: 1px solid #1A4D2E;
+  font-size: 0.9rem;
+  align-items: center;
+  min-height: 48px;
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+.tableRow:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.tableRow:last-child {
+  border-bottom: none;
+}
+.tableRow:hover {
+  background-color: #e9ecef;
+}
+.productName {
+  font-weight: 500;
+  color: #1f2937;
+}
+.rowTotal {
+  font-weight: 600;
+  color: #1A4D2E;
+}
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  flex-shrink: 0;
+  gap: 16px;
+}
+.actionContainer {
+  display: flex;
+  flex: 1;
+}
+.viewDetailsBtn {
+  width: 50%;
+  padding: 12px;
+  background: #FFE194;
+  color: #000000;
+  border: 2px solid #FFB319;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(1px);
+}
+.viewDetailsBtn:hover {
+  background: #FFE194;
+  transform: translateY(0px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    0 3px 6px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(255, 177, 25, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+.viewDetailsBtn:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dateTotalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex: 1;
+}
+.dateBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #374151;
+  font-weight: 500;
+  align-self: flex-end;
+}
+.dateBox svg {
+  color: #4F6F52;
+}
+.totalSection {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.totalLabel {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+.totalPrice {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000000;
+}
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+  color: #666;
+  grid-column: 1 / -1;
+}
+.emptyState p {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.emptyState span {
+  font-size: 0.95rem;
+}
+.tableBody::-webkit-scrollbar {
+  width: 6px;
+}
+.tableBody::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+.tableBody::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+.tableBody::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (max-width: 1023px) and (min-width: 801px) {
+  .orderGrid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
+  }
+  .orderCard {
+    padding: 16px;
+    height: 400px;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 768px) {
+  .orderGrid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .orderCard {
+    padding: 16px;
+    height: 390px;
+    min-height: 390px;
+  }
+  .orderHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 6px;
+    padding: 10px 10px;
+    font-size: 0.85rem;
+  }
+  .tableHeader span:nth-child(3),
+  .tableRow span:nth-child(3) {
+    display: none;
+  }
+  .orderFooter {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .dateTotalContainer {
+    align-items: stretch;
+  }
+  .dateBox {
+    align-self: stretch;
+    justify-content: center;
+  }
+  .totalSection {
+    justify-content: space-between;
+  }
+  .totalPrice {
+    font-size: 1.2rem;
+  }
+  .viewDetailsBtn {
+    width: 60%;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 600px) {
+  .orderGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .orderCard {
+    height: 380px;
+    min-height: 380px;
+    padding: 14px;
+  }
+  .orderId {
+    font-size: 1.1rem;
+  }
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: 0.8rem;
+  }
+  .totalPrice {
+    font-size: 1.1rem;
+  }
+  .viewDetailsBtn {
+    width: 50%;
+  }
+}
+
+@media (max-width: 599px) and (min-width: 481px) {
+  .orderGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .orderCard {
+    height: 370px;
+    min-height: 370px;
+    padding: 12px;
+  }
+  .orderId {
+    font-size: 1rem;
+  }
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr;
+    font-size: 0.75rem;
+  }
+  .tableHeader span:nth-child(2),
+  .tableRow span:nth-child(2) {
+    display: none;
+  }
+  .totalPrice {
+    font-size: 1rem;
+  }
+  .viewDetailsBtn {
+    width: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .orderGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .orderCard {
+    height: 360px;
+    min-height: 360px;
+    padding: 10px;
+  }
+  .orderId {
+    font-size: 0.95rem;
+  }
+  .contactItem {
+    font-size: 0.8rem;
+  }
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr;
+    font-size: 0.7rem;
+    padding: 8px 8px;
+  }
+  .viewDetailsBtn {
+    width: 70%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .totalPrice {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .orderCard {
+    height: 340px;
+    min-height: 340px;
+    padding: 8px;
+  }
+  .orderId {
+    font-size: 0.9rem;
+  }
+  .contactItem {
+    font-size: 0.75rem;
+  }
+  .tableHeader,
+  .tableRow {
+    font-size: 0.65rem;
+    padding: 6px 6px;
+  }
+  .viewDetailsBtn {
+    width: 80%;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+  .totalPrice {
+    font-size: 0.9rem;
+  }
+}
+

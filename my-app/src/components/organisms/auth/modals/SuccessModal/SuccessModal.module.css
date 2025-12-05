@@ -1,0 +1,96 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.successIcon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #1A4D2E;
+}
+
+.modalMessage {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modalBtn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1A4D2E;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+
+.modalBtn:hover {
+  background-color: #2e7d32;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 24px;
+  }
+  
+  .successIcon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  
+  .modalTitle {
+    font-size: 20px;
+  }
+  
+  .modalMessage {
+    font-size: 14px;
+  }
+  
+  .modalBtn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}

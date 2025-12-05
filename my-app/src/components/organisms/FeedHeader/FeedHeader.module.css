@@ -1,0 +1,218 @@
+.feedHeader {
+  background: #FFE194;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 0; /* Reduced from 40px */
+}
+
+.profileInfo {
+  padding: 0 40px;
+}
+
+.profileContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo and Info Container - Side by side */
+.logoInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Reduced from 30px */
+}
+
+/* Logo Container */
+.logoContainer {
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 80px; /* Reduced from 120px */
+  height: 80px; /* Reduced from 120px */
+  border-radius: 50%;
+  border: 3px solid white; /* Reduced from 4px */
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+/* Farm Information */
+.farmInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Reduced from 15px */
+}
+
+.farmNameContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Reduced from 10px */
+}
+
+.farmName {
+  font-size: 1.8rem; /* Reduced from 2.5rem */
+  font-weight: 700;
+  color: #273F4F; /* Changed to specified color */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Reduced from 10px */
+}
+
+.verifiedBadge {
+  color: #7ABA78;
+}
+
+.farmDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Reduced from 8px */
+  align-items: flex-start;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Reduced from 8px */
+  color: #273F4F; /* Changed to specified color */
+  font-size: 0.9rem; /* Reduced from 1rem */
+  font-weight: 500;
+}
+
+.detailIcon {
+  color: #7ABA78;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px; /* Reduced from 15px */
+  margin-top: 8px; /* Reduced from 10px */
+}
+
+.followButton {
+  padding: 8px 20px; /* Reduced from 10px 24px */
+  background: #7ABA78;
+  color: white;
+  border: none;
+  border-radius: 6px; /* Reduced from 8px */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.9rem; /* Added smaller font */
+}
+
+.followButton:hover {
+  background: #6AA86A;
+}
+
+.messageButton {
+  padding: 8px 20px; /* Reduced from 10px 24px */
+  background: white;
+  color: #7ABA78;
+  border: 2px solid #7ABA78;
+  border-radius: 6px; /* Reduced from 8px */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem; /* Added smaller font */
+}
+
+.messageButton:hover {
+  background: #7ABA78;
+  color: white;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .feedHeader {
+    padding: 15px 0; /* Reduced from 30px */
+  }
+
+  .profileInfo {
+    padding: 0 20px;
+  }
+
+  /* Mobile: Logo on left, info on right */
+  .logoInfoContainer {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px; /* Reduced from 20px */
+  }
+
+  .logo {
+    width: 60px; /* Reduced from 80px */
+    height: 60px; /* Reduced from 80px */
+    border-width: 2px; /* Reduced from 3px */
+  }
+
+  .farmInfo {
+    text-align: left;
+    align-items: flex-start;
+    gap: 10px; /* Reduced from default */
+  }
+
+  .farmName {
+    font-size: 1.4rem; /* Reduced from 1.8rem */
+    justify-content: flex-start;
+    gap: 6px; /* Reduced from default */
+  }
+
+  .farmDetails {
+    align-items: flex-start;
+    gap: 4px; /* Reduced from default */
+  }
+
+  .detailItem {
+    font-size: 0.8rem; /* Reduced from 0.9rem */
+    gap: 4px; /* Reduced from default */
+  }
+
+  .actionButtons {
+    justify-content: flex-start;
+    gap: 10px; /* Reduced from default */
+    margin-top: 6px; /* Reduced from default */
+  }
+
+  .followButton,
+  .messageButton {
+    padding: 6px 16px; /* Reduced from 8px 20px */
+    font-size: 0.8rem; /* Reduced from 0.9rem */
+  }
+}
+
+@media (max-width: 480px) {
+  .feedHeader {
+    padding: 12px 0; /* Reduced from 25px */
+  }
+
+  .profileInfo {
+    padding: 0 15px;
+  }
+
+  .logoInfoContainer {
+    gap: 12px; /* Reduced from 15px */
+  }
+
+  .logo {
+    width: 50px; /* Reduced from 60px */
+    height: 50px; /* Reduced from 60px */
+  }
+
+  .farmName {
+    font-size: 1.2rem; /* Reduced from 1.5rem */
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px; /* Reduced from default */
+  }
+
+  .followButton,
+  .messageButton {
+    width: 100%;
+    text-align: center;
+    padding: 8px 16px; /* Adjusted for mobile */
+  }
+}
+

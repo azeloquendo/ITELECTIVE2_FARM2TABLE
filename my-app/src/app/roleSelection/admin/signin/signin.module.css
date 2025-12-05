@@ -1,0 +1,268 @@
+/* Page Container */
+.pageContainer {
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Main Container Box */
+.mainContainer {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    min-height: auto;
+    background: #ffffff;
+    border-radius: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Form Section Only */
+.formSection {
+    flex: 1;
+    padding: 50px 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.formContainer {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logoContainer {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.formTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #273F4F;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+/* Form Styles */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #273F4F;
+    margin-bottom: 8px;
+}
+
+.input {
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #273F4F;
+    background: white;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #805ad5;
+    box-shadow: 0 0 0 3px rgba(128, 90, 213, 0.1);
+}
+
+.input::placeholder {
+    color: #adb5bd;
+}
+
+/* Password Input */
+.passwordContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.passwordContainer .input {
+    padding-right: 70px;
+}
+
+.toggleBtn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #273F4F;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.toggleBtn:hover {
+    background: #f8f9fa;
+    color: #805ad5;
+}
+
+/* Forgot Password Container */
+.forgotPasswordContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 4px;
+}
+
+.forgotLink {
+    color: #273F4F;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.forgotLink:hover {
+    color: #805ad5;
+    text-decoration: underline;
+}
+
+/* 3D Submit Button */
+.submitButton {
+    padding: 14px;
+    background: #FFE194;
+    color: #273F4F;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    box-shadow: 
+        0 4px 0 #E6C885,
+        0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+    border: 2px solid #FFD369;
+    width: 100%;
+}
+
+.submitButton:hover:not(:disabled) {
+    background: #FFD369;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 0 #E6C885,
+        0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.submitButton:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 
+        0 2px 0 #E6C885,
+        0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.submitButton:disabled {
+    background: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    border: 2px solid #bbbbbb;
+}
+
+/* Sign Up Prompt */
+.signupPrompt {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #273F4F;
+}
+
+.signupLink {
+    color: #805ad5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signupLink:hover {
+    color: #6b46c1;
+    text-decoration: underline;
+}
+
+/* Error Message */
+.errorMessage {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #fed7d7;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: 20px 16px;
+    }
+    
+    .mainContainer {
+        max-width: 100%;
+    }
+    
+    .formSection {
+        padding: 40px 30px;
+    }
+    
+    .formTitle {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .logo {
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .formSection {
+        padding: 30px 20px;
+    }
+    
+    .formTitle {
+        font-size: 22px;
+    }
+    
+    .logo {
+        height: 60px;
+    }
+}
