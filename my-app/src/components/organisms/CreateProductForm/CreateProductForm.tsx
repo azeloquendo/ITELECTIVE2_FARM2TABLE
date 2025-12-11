@@ -199,16 +199,9 @@ export default function CreateProductForm({
         category: (formData.get("category") as string) || "General",
         unit: (formData.get("unit") as string) || "piece",
       };
-      const res = await fetch("/api/gemini/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userMessage, productContext }),
-      });
-      if (!res.ok) {
-        throw new Error(`API responded with status: ${res.status}`);
-      }
-      const data = await res.json();
-      const aiText = data.reply || "Sorry, I couldn't generate a description. Please try again.";
+      // Use GeminiService directly
+      const { GeminiService } = await import("@/api/third-party/geminiService");
+      const aiText = await GeminiService.chatGenerateDescription(userMessage, productContext);
       const newAIMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         text: aiText,

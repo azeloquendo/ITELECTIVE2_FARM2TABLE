@@ -3,10 +3,10 @@ import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/utils/lib/firebase";
 import { useRouter, usePathname } from "next/navigation";
-import AdminLayout from "../../components/layouts/AdminLayout";
-import DashboardSubmenu from "../../components/admin-submenus/DashboardSubmenu";
-import NotificationSubmenu from "../../components/admin-submenus/NotificationSubmenu"; // FIXED IMPORT NAME
-import LogoutModal from "../../components/auth/modals/LogoutModal/LogoutModal";
+import AdminLayout from "../../components/organisms/layouts/AdminLayout";
+import DashboardSubmenu from "../../components/organisms/submenu/admin-submenus/DashboardSubmenu";
+import NotificationSubmenu from "../../components/organisms/submenu/admin-submenus/NotificationSubmenu";
+import LogoutModal from "../../components/organisms/modals/LogoutModal/LogoutModal";
 
 export default function RootAdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

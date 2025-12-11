@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import PrivacyModal from "../../../../components/organisms/auth/modals/PrivacyModal/PrivacyModal";
+import PrivacyModal from "../../../../components/organisms/modals/PrivacyModal/PrivacyModal";
 import styles from "./signup.module.css";
-import TermsModal from "../../../../components/organisms/auth/modals/TermsModal/TermsModal";
+import TermsModal from "../../../../components/organisms/modals/TermsModal/TermsModal";
 // Firebase imports
 import { 
   createUserWithEmailAndPassword, 

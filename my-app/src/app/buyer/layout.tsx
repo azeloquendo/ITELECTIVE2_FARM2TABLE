@@ -1,8 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
-import DashboardSubmenu from "../../components/organisms/buyer-submenus/DashboardSubmenu";
-import MarketplaceSubmenu, { MarketplaceCategoryProvider } from "../../components/organisms/buyer-submenus/MarketplaceSubmenu";
-import ProfileSubmenu from "../../components/organisms/buyer-submenus/ProfileSubmenu";
+import DashboardSubmenu from "../../components/organisms/submenu/buyer-submenus/DashboardSubmenu";
+import MarketplaceSubmenu, { MarketplaceCategoryProvider } from "../../components/organisms/submenu/buyer-submenus/MarketplaceSubmenu";
+import ProfileSubmenu from "../../components/organisms/submenu/buyer-submenus/ProfileSubmenu";
 import BuyerLayout from "../../components/organisms/layouts/BuyerLayout";
 import { CartProvider } from "../context/CartContext";
 

@@ -1,6 +1,7 @@
 "use client";
 import LoadingSpinner from "@/components/atoms/LoadingSpinner";
-import { useContactForm } from "@/hooks/useContactForm";
+import { submitSupportTicket } from "@/api/third-party/helpService";
+import { getFAQs } from "@/api/third-party/faqService";
 import { ChevronDown, ChevronUp, Search, Send, Shield } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import styles from "./helpCenter.module.css";
@@ -59,20 +60,10 @@ export default function HelpCenterPage() {
   const [loadingFaqs, setLoadingFaqs] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
 
-  // Use the reusable contact form hook
-  const { isSubmitting, submitSuccess, error, submitForm } = useContactForm({
-    endpoint: '/api/help/contact',
-    onSuccess: () => {
-      setContactForm({
-        name: "",
-        email: "",
-        orderId: "",
-        issueType: "general",
-        subject: "",
-        message: ""
-      });
-    }
-  });
+  // Contact form state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   // Default FAQs as fallback
   const defaultFaqs: FAQ[] = [
@@ -156,13 +147,8 @@ export default function HelpCenterPage() {
     const fetchFaqs = async () => {
       try {
         setLoadingFaqs(true);
-        const response = await fetch('/api/help/faqs');
-        if (response.ok) {
-          const data = await response.json();
-          setFaqs(data);
-        } else {
-          setFaqs(defaultFaqs);
-        }
+        const data = await getFAQs();
+        setFaqs(data);
       } catch (error) {
         console.error('Error fetching FAQs:', error);
         setFaqs(defaultFaqs);
@@ -225,19 +211,40 @@ export default function HelpCenterPage() {
     setExpandedFaq(expandedFaq === id ? null : id);
   };
 
-  // Updated contact form submission using the reusable hook
+  // Contact form submission using helpService
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    setSubmitSuccess(false);
     
     try {
-      await submitForm({
-        ...contactForm,
-        type: 'help_center_contact',
-        source: 'help_center'
+      const result = await submitSupportTicket({
+        name: contactForm.name,
+        email: contactForm.email,
+        orderId: contactForm.orderId || undefined,
+        issueType: contactForm.issueType,
+        subject: contactForm.subject,
+        message: contactForm.message
       });
-    } catch (err) {
-      // Error is already handled in the hook
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        setTimeout(() => setSubmitSuccess(false), 5000);
+        setContactForm({
+          name: "",
+          email: "",
+          orderId: "",
+          issueType: "general",
+          subject: "",
+          message: ""
+        });
+      }
+    } catch (err: any) {
       console.error('Submission error:', err);
+      setError(err.message || 'Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -281,30 +288,19 @@ export default function HelpCenterPage() {
     setIsTyping(true);
 
     try {
-      // Send message to backend chat API
-      const response = await fetch('/api/help/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: currentMessage,
-          userId: 'anonymous',
-          timestamp: new Date().toISOString()
-        }),
-      });
-
+      // Use chatService directly instead of API route
+      const { processChatMessage } = await import('@/api/third-party/chatService');
+      
       // Simulate typing delay for better UX
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      let botResponseText = "I understand you're looking for help. Let me connect you with our support team who can assist you with this specific issue. They'll be with you shortly!";
+      // Process message using chat service
+      const chatResponse = processChatMessage(currentMessage, chatMessages.map(m => ({
+        text: m.text,
+        sender: m.sender
+      })));
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.response) {
-          botResponseText = data.response;
-        }
-      }
+      const botResponseText = chatResponse.response || "I understand you're looking for help. Let me connect you with our support team who can assist you with this specific issue. They'll be with you shortly!";
 
       // Add bot response
       const botResponse: ChatMessage = {

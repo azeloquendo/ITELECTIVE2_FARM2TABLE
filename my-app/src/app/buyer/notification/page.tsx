@@ -1,8 +1,8 @@
 "use client";
 import { AlertTriangle, Bell, Calendar, Clock, Package, ShoppingCart, Sparkles, Star, Trash2, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
-import NotificationSubmenu from "../../../components/organisms/buyer-submenus/NotificationSubmenu";
-import DeleteConfirmationModal from "../../../components/organisms/DeleteConfirmationModal/DeleteConfirmationModal";
+import NotificationSubmenu from "../../../components/organisms/submenu/buyer-submenus/NotificationSubmenu";
+import DeleteConfirmationModal from "../../../components/organisms/modals/DeleteConfirmationModal/DeleteConfirmationModal";
 import { TIME_FILTERS } from "../../../constants/buyer/notification";
 import { useBuyerNotifications } from "../../../hooks/buyer";
 import styles from "./notification.module.css";

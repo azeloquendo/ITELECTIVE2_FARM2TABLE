@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, se
 import { ChevronLeft, ChevronRight, Heart, Image, Info, MapPin, MessageCircle, Minus, Plus, ShoppingCart, Snowflake, Star, Store } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import OrderSuccessModal from "../../../../components/organisms/auth/modals/OrderModal/OrderSuccessModal";
+import OrderSuccessModal from "../../../../components/organisms/modals/OrderModal/OrderSuccessModal";
 import CartSidebar from "../../../../components/organisms/cart/CartSidebar";
 import PriceBreakdown from "../../../../components/molecules/PriceBreakdown";
 import { auth, db } from "../../../../utils/lib/firebase";

@@ -1,105 +1,128 @@
-// middleware.ts
+// middleware.ts - Enhanced with improved authentication and routing logic
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
-  console.log('🛡️ Middleware running for:', request.nextUrl.pathname);
-  
-  const path = request.nextUrl.pathname;
-  
+// Route configuration
+const ROUTE_CONFIG = {
   // Public routes that don't require authentication
-  const publicRoutes = [
+  public: [
     '/',
-    '/login',
-    '/register',
     '/roleSelection',
     '/roleSelection/buyer/signin',
     '/roleSelection/buyer/signup',
     '/roleSelection/seller/signin', 
     '/roleSelection/seller/signup',
     '/roleSelection/admin/signin',
-    '/farm-feed',
-    '/api/public'
-  ];
+    '/roleSelection/admin/signup',
+    '/roleSelection/forgotPassword',
+    '/payment-success',
+    '/api',
+  ],
+  // Protected routes that require authentication
+  protected: {
+    buyer: ['/buyer'],
+    seller: ['/seller'],
+    admin: ['/admin'],
+  },
+  // Routes that redirect authenticated users away
+  authRedirect: [
+    '/roleSelection',
+    '/roleSelection/buyer/signin',
+    '/roleSelection/buyer/signup',
+    '/roleSelection/seller/signin',
+    '/roleSelection/seller/signup',
+    '/roleSelection/admin/signin',
+    '/roleSelection/admin/signup',
+  ],
+};
 
-  // Check if the current path is public
-  const isPublicRoute = publicRoutes.some(route => 
-    path === route || path.startsWith(route + '/')
-  );
+// Helper function to check if path matches a route pattern
+function matchesRoute(path: string, routes: string[]): boolean {
+  return routes.some(route => {
+    if (route === path) return true;
+    if (route.endsWith('*')) {
+      return path.startsWith(route.slice(0, -1));
+    }
+    return path.startsWith(route + '/');
+  });
+}
 
-  if (isPublicRoute) {
-    console.log('✅ Public route access allowed:', path);
+// Helper function to get user's dashboard based on role
+function getDashboardForRole(role: string | undefined): string {
+  switch (role) {
+    case 'buyer':
+      return '/buyer/dashboard';
+    case 'seller':
+      return '/seller/dashboard';
+    case 'admin':
+      return '/admin/dashboard';
+    default:
+      return '/roleSelection';
+  }
+}
+
+// Helper function to check if route requires specific role
+function requiresRole(path: string): 'buyer' | 'seller' | 'admin' | null {
+  if (matchesRoute(path, ROUTE_CONFIG.protected.buyer)) return 'buyer';
+  if (matchesRoute(path, ROUTE_CONFIG.protected.seller)) return 'seller';
+  if (matchesRoute(path, ROUTE_CONFIG.protected.admin)) return 'admin';
+  return null;
+}
+
+export function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  
+  // Skip middleware for static files and Next.js internals
+  if (
+    path.startsWith('/_next') ||
+    path.startsWith('/api') ||
+    path.match(/\.(ico|png|jpg|jpeg|gif|svg|webp|css|js|woff|woff2|ttf|eot)$/)
+  ) {
     return NextResponse.next();
   }
 
-  // Get authentication token from cookies
+  // Check if route is public
+  const isPublicRoute = matchesRoute(path, ROUTE_CONFIG.public);
+  
+  // Get authentication state from cookies
   const authToken = request.cookies.get('auth-token')?.value;
-  const userRole = request.cookies.get('user-role')?.value;
+  const userRole = request.cookies.get('user-role')?.value as 'buyer' | 'seller' | 'admin' | undefined;
 
-  console.log('🔐 Auth check - Token exists:', !!authToken, 'Role:', userRole);
+  // Handle authenticated users trying to access auth pages
+  if (authToken && matchesRoute(path, ROUTE_CONFIG.authRedirect)) {
+    const dashboard = getDashboardForRole(userRole);
+    return NextResponse.redirect(new URL(dashboard, request.url));
+  }
 
-  // If no auth token and trying to access protected route, redirect to login
+  // If public route, allow access
+  if (isPublicRoute) {
+    return NextResponse.next();
+  }
+
+  // Protected route - check authentication
   if (!authToken) {
-    console.log('❌ No auth token, redirecting to role selection');
+    // Store the intended destination for redirect after login
     const loginUrl = new URL('/roleSelection', request.url);
+    loginUrl.searchParams.set('redirect', path);
     return NextResponse.redirect(loginUrl);
   }
 
-  // 🟢 LESS STRICT Role-based route protection
-  if (path.startsWith('/seller')) {
-    if (userRole !== 'seller') {
-      console.log('🚫 SELLER route accessed by:', userRole, '- redirecting to their respective dashboard');
-      
-      // 🟢 DON'T CLEAR COOKIES - just redirect to their correct dashboard
-      if (userRole === 'buyer') {
-        return NextResponse.redirect(new URL('/buyer/dashboard', request.url));
-      } else if (userRole === 'admin') {
-        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
-      } else {
-        // Unknown role, go to role selection but DON'T clear cookies
-        return NextResponse.redirect(new URL('/roleSelection', request.url));
-      }
-    }
-    console.log('✅ Seller access granted');
+  // Check role-based access
+  const requiredRole = requiresRole(path);
+  if (requiredRole && userRole !== requiredRole) {
+    // User has wrong role - redirect to their dashboard
+    const dashboard = getDashboardForRole(userRole);
+    return NextResponse.redirect(new URL(dashboard, request.url));
   }
 
-  if (path.startsWith('/buyer')) {
-    if (userRole !== 'buyer') {
-      console.log('🚫 BUYER route accessed by:', userRole, '- redirecting to their respective dashboard');
-      
-      // 🟢 DON'T CLEAR COOKIES - just redirect to their correct dashboard
-      if (userRole === 'seller') {
-        return NextResponse.redirect(new URL('/seller/profile', request.url));
-      } else if (userRole === 'admin') {
-        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
-      } else {
-        // Unknown role, go to role selection but DON'T clear cookies
-        return NextResponse.redirect(new URL('/roleSelection', request.url));
-      }
-    }
-    console.log('✅ Buyer access granted');
-  }
+  // Add security headers
+  const response = NextResponse.next();
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  // 🟢 Admin route protection
-  if (path.startsWith('/admin')) {
-    if (userRole !== 'admin') {
-      console.log('🚫 ADMIN route accessed by:', userRole, '- redirecting to their respective dashboard');
-      
-      // 🟢 DON'T CLEAR COOKIES - just redirect to their correct dashboard
-      if (userRole === 'seller') {
-        return NextResponse.redirect(new URL('/seller/profile', request.url));
-      } else if (userRole === 'buyer') {
-        return NextResponse.redirect(new URL('/buyer/dashboard', request.url));
-      } else {
-        // Unknown role, go to role selection but DON'T clear cookies
-        return NextResponse.redirect(new URL('/roleSelection', request.url));
-      }
-    }
-    console.log('✅ Admin access granted');
-  }
-
-  console.log('✅ Access granted for:', path, 'Role:', userRole);
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

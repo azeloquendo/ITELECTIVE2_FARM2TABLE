@@ -2,7 +2,7 @@
 import { Edit, Filter, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { DeleteConfirmationModal, ProductCard, StockBadge } from "../../../components";
-import CreateProductModal from "../../../components/organisms/auth/modals/CreateProductModal/CreateProductModal";
+import CreateProductModal from "../../../components/organisms/modals/CreateProductModal/CreateProductModal";
 import CreateProductForm from "../../../components/organisms/CreateProductForm/CreateProductForm";
 import UpdateProductForm from "../../../components/organisms/UpdateProductForm/UpdateProductForm";
 import { useProductFilters, useSellerProducts } from "../../../hooks/seller";

@@ -19,10 +19,10 @@ import { db } from "../../utils/lib/firebase";
  */
 export const fetchSellerProducts = async (sellerId: string): Promise<Product[]> => {
   try {
+    // Remove orderBy to avoid composite index requirement - we'll sort client-side
     const productsQuery = query(
       collection(db, "products"),
-      where("sellerId", "==", sellerId),
-      orderBy("createdAt", "desc")
+      where("sellerId", "==", sellerId)
     );
     
     const querySnapshot = await getDocs(productsQuery);
@@ -38,6 +38,13 @@ export const fetchSellerProducts = async (sellerId: string): Promise<Product[]> 
         imageUrls: data.imageUrls || (data.image ? [data.image] : []),
         image: data.imageUrls?.[0] || data.image,
       } as Product);
+    });
+    
+    // Sort by createdAt descending on client-side
+    products.sort((a, b) => {
+      const aTime = a.createdAt instanceof Date ? a.createdAt.getTime() : 0;
+      const bTime = b.createdAt instanceof Date ? b.createdAt.getTime() : 0;
+      return bTime - aTime;
     });
     
     return products;

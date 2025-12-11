@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import styles from './FarmFeed.module.css';
-import FeedHeader from '../../../../../components/organisms/FeedHeader/FeedHeader';
+import FeedHeader from '../../../../../components/organisms/feed/FeedHeader/FeedHeader';
 import FarmDescription from '../../../../../components/molecules/FarmDescription/FarmDescription';
-import Gallery from '../../../../../components/organisms/Gallery/Gallery';
-import FeaturedProducts from '../../../../../components/organisms/FeaturedProducts/FeaturedProducts';
-import FarmerProfiles from '../../../../../components/organisms/FarmerProfiles/FarmerProfiles';
+import Gallery from '../../../../../components/organisms/feed/Gallery/Gallery';
+import FeaturedProducts from '../../../../../components/organisms/feed/FeaturedProducts/FeaturedProducts';
+import FarmerProfiles from '../../../../../components/organisms/feed/FarmerProfiles/FarmerProfiles';
 
 // Firebase imports
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';

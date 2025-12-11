@@ -14,7 +14,7 @@ import {
   Users
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import DeleteConfirmationModal from "../../../../components/organisms/auth/modals/DeleteConfirmationModal/DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../../../components/organisms/modals/DeleteConfirmationModal/DeleteConfirmationModal";
 import { TIME_FILTERS } from "../../../../constants/seller/notification";
 import { useNotifications } from "../../../../hooks/seller";
 import styles from "./notification.module.css";

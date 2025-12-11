@@ -24,16 +24,13 @@ export const subscribeToConversations = (
   
   const setupSubscription = (useOrderBy: boolean = true) => {
     try {
-      const q = useOrderBy
-        ? query(
-            collection(db, "conversations"),
-            where("participants.sellerId", "==", sellerId),
-            orderBy("lastMessageTime", "desc")
-          )
-        : query(
-            collection(db, "conversations"),
-            where("participants.sellerId", "==", sellerId)
-          );
+      // Note: Firestore requires a composite index for queries with where + orderBy
+      // To avoid index errors, we'll query without orderBy and sort manually
+      // This works without requiring an index to be created
+      const q = query(
+        collection(db, "conversations"),
+        where("participants.sellerId", "==", sellerId)
+      );
 
       unsubscribeFn = onSnapshot(
         q,
@@ -46,18 +43,21 @@ export const subscribeToConversations = (
             } as FirebaseConversation);
           });
           
-          // If not using orderBy, sort manually
-          if (!useOrderBy) {
-            conversations.sort((a, b) => {
-              const timeA = a.lastMessageTime?.toDate?.() || new Date(0);
-              const timeB = b.lastMessageTime?.toDate?.() || new Date(0);
-              return timeB.getTime() - timeA.getTime();
-            });
-          }
+          // Always sort manually to avoid index requirement
+          // This ensures the query works without needing a composite index
+          conversations.sort((a, b) => {
+            const timeA = a.lastMessageTime?.toDate?.() || a.lastMessageTime || new Date(0);
+            const timeB = b.lastMessageTime?.toDate?.() || b.lastMessageTime || new Date(0);
+            const dateA = timeA instanceof Date ? timeA : (typeof timeA === 'string' ? new Date(timeA) : new Date(0));
+            const dateB = timeB instanceof Date ? timeB : (typeof timeB === 'string' ? new Date(timeB) : new Date(0));
+            return dateB.getTime() - dateA.getTime();
+          });
           
           callback(conversations);
         },
         (error) => {
+          console.error('Error fetching conversations:', error);
+          callback([]);
           console.error("❌ Error in conversations subscription:", error);
           // If orderBy fails due to missing index, try without it
           if (useOrderBy && (error.code === 'failed-precondition' || error.message?.includes('index'))) {

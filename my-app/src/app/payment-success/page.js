@@ -1,24 +1,42 @@
  "use client"; 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../utils/lib/firebase';
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [status, setStatus] = useState('loading');
   const [orderId, setOrderId] = useState('');
 
   useEffect(() => {
-    const paymentIntentId = searchParams.get('payment_intent_id');
+    const paymentIntentId = searchParams.get('payment_intent_id') || searchParams.get('payment_intent');
     
     if (paymentIntentId) {
       saveOrderToFirebase(paymentIntentId);
     } else {
-      setStatus('error');
+      // If no payment intent but status is success (mock mode), still show success
+      const statusParam = searchParams.get('status');
+      if (statusParam === 'success') {
+        setStatus('success');
+        setOrderId('Mock Order');
+      } else {
+        setStatus('error');
+      }
     }
   }, [searchParams]);
+
+  // Auto-redirect to marketplace after 3 seconds when payment is successful
+  useEffect(() => {
+    if (status === 'success') {
+      const timer = setTimeout(() => {
+        router.push('/buyer/marketplace');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, router]);
 
   const saveOrderToFirebase = async (paymentIntentId) => {
     try {
@@ -169,6 +187,9 @@ export default function PaymentSuccess() {
       </div>
 
       <p>You can now view your order in the purchases section.</p>
+      <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+        Redirecting to marketplace in 3 seconds...
+      </p>
 
       <div style={{ marginTop: '30px' }}>
         <Link 

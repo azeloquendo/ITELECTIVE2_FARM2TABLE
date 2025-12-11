@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "../../../app/context/CartContext";
 import { useAuth } from "@/app/context/AuthContext"; // 🟢 ADD AUTH CONTEXT
-import DashboardSubmenu from "../../../components/organisms/buyer-submenus/DashboardSubmenu";
-import MarketplaceSubmenu from "../../../components/organisms/buyer-submenus/MarketplaceSubmenu";
-import ProfileSubmenu from "../../../components/organisms/buyer-submenus/ProfileSubmenu";
-import NotificationSubmenu from "../../../components/organisms/buyer-submenus/NotificationSubmenu"; 
-import LogoutModal from "../auth/modals/LogoutModal/LogoutModal";
+import DashboardSubmenu from "../submenu/buyer-submenus/DashboardSubmenu";
+import MarketplaceSubmenu from "../submenu/buyer-submenus/MarketplaceSubmenu";
+import ProfileSubmenu from "../submenu/buyer-submenus/ProfileSubmenu";
+import NotificationSubmenu from "../submenu/buyer-submenus/NotificationSubmenu"; 
+import LogoutModal from "../modals/LogoutModal/LogoutModal";
 import MainSidebar from "../navigation/MainSidebar"; // 🟢 USE BUYER-SPECIFIC SIDEBAR
 import styles from "./BuyerLayout.module.css";
 

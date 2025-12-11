@@ -2,8 +2,8 @@
 import { Eye, Search } from "lucide-react";
 import { useState } from "react";
 import { OrderList, StatusBadge } from "../../../components";
-import GenerateReportModal from "../../../components/organisms/GenerateReportModal/GenerateReportModal";
-import OrderDetails from "../../../components/organisms/OrderDetails/OrderDetails";
+import GenerateReportModal from "../../../components/organisms/order/GenerateReportModal/GenerateReportModal";
+import OrderDetails from "../../../components/organisms/order/OrderDetails/OrderDetails";
 import { useOrderFilters, useOrderReports, useSellerOrders } from "../../../hooks/seller";
 import { Order } from "../../../interface/seller";
 import { useCategory } from "../../context/CategoryContext";

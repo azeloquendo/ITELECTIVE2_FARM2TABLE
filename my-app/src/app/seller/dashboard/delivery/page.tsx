@@ -76,6 +76,12 @@ export default function DeliveryPage() {
       let inProcessCount = 0;
       let completedCount = 0;
       const todayRange = getTodayDateRange();
+      const toDateSafe = (value: any) => {
+        if (!value) return null;
+        if (typeof value.toDate === 'function') return value.toDate();
+        const d = new Date(value);
+        return isNaN(d.getTime()) ? null : d;
+      };
       
       querySnapshot.forEach((doc) => {
         const order = doc.data();
@@ -85,7 +91,7 @@ export default function DeliveryPage() {
         const isSellerOrder = sellerOrders.some((seller: any) => seller.sellerId === userId);
         
         if (!isSellerOrder) return;
-        const orderDate = order.createdAt ? new Date(order.createdAt) : new Date();
+        const orderDate = toDateSafe(order.createdAt) || new Date();
         const status = order.status || 'pending';
         
         // Convert status to match your design

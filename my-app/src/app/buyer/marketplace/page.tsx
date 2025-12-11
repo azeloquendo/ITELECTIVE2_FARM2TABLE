@@ -2,8 +2,8 @@
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import OrderSuccessModal from "../../../components/organisms/auth/modals/OrderModal/OrderSuccessModal";
-import { useCategory } from "../../../components/organisms/buyer-submenus/MarketplaceSubmenu";
+import OrderSuccessModal from "../../../components/organisms/modals/OrderModal/OrderSuccessModal";
+import { useCategory } from "../../../components/organisms/submenu/buyer-submenus/MarketplaceSubmenu";
 import CartSidebar from "../../../components/organisms/cart/CartSidebar";
 import ProductCard from "../../../components/molecules/BuyerProductCard/ProductCard";
 import { SORT_OPTIONS } from "../../../constants/buyer/marketplace";
@@ -12,7 +12,6 @@ import { MarketplaceProduct, UserLocation } from "../../../interface/buyer/marke
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import styles from "./marketplace.module.css";
-
 export default function MarketplacePage() {
   const categoryContext = useCategory();
   const selectedCategory = categoryContext?.selectedCategory || "all";

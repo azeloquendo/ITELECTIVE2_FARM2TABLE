@@ -1,0 +1,19 @@
+# robots.txt for Farm2Table
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /buyer/dashboard/
+Disallow: /seller/dashboard/
+Disallow: /buyer/profile/
+Disallow: /seller/profile/
+Disallow: /_next/
+Disallow: /roleSelection/
+
+# Allow important pages
+Allow: /buyer/marketplace
+Allow: /buyer/marketplace/*
+
+# Sitemap location
+Sitemap: https://farm2table.com/sitemap.xml
+

@@ -7,7 +7,7 @@ import { createOrderNotification } from "../../../utils/lib/OrderNotification";
 import { calculateDeliveryFee, calculateDistance, calculateETA } from "../../../utils/lib/distanceCalculator";
 import { db } from "../../../utils/lib/firebase";
 import { createOrderViaApi } from "../../../utils/lib/orderApiService";
-import { processPayment } from "../../../utils/lib/paymentService";
+import { processPayment } from "../../../api/third-party/paymentService";
 import styles from "./CartSidebar.module.css";
 
 // ✅ ADDED: MOQ Validation Helper

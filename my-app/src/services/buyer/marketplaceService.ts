@@ -140,18 +140,17 @@ export const fetchProducts = async (category: string = 'all'): Promise<Marketpla
   try {
     let productsQuery;
     
+    // Remove orderBy to avoid composite index requirement - we'll sort client-side
     if (category === 'all') {
       productsQuery = query(
         collection(db, 'products'),
-        where('status', '==', 'active'),
-        orderBy('createdAt', 'desc')
+        where('status', '==', 'active')
       );
     } else {
       productsQuery = query(
         collection(db, 'products'),
         where('status', '==', 'active'),
-        where('category', '==', category),
-        orderBy('createdAt', 'desc')
+        where('category', '==', category)
       );
     }
 
@@ -185,6 +184,13 @@ export const fetchProducts = async (category: string = 'all'): Promise<Marketpla
         } : undefined,
       } as MarketplaceProduct);
     }
+
+    // Sort by createdAt descending on client-side
+    products.sort((a, b) => {
+      const aTime = a.createdAt?.toMillis?.() || a.createdAt || 0;
+      const bTime = b.createdAt?.toMillis?.() || b.createdAt || 0;
+      return bTime - aTime;
+    });
 
     return products;
   } catch (error) {
